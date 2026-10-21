@@ -63,6 +63,21 @@ h3 {
   font-weight: 600;
   letter-spacing: -0.35px;
 }
+.provider-description h2,
+.quick-pick h2,
+.table-company a,
+.featured-company h3,
+.paper-table td:first-child,
+.directory-company h2,
+.review-hero h1,
+.alternative-card h3,
+.comparison-table h2,
+.add-company strong,
+.tray-names button,
+.search-result[href^="/reviews/"] h3 {
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
 h1 em,
 h2 em {
   font-weight: 400;
