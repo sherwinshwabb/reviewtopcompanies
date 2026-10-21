@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Category, Provider } from "@/lib/catalog";
 import { isPaidPlacement, outboundRel } from "@/lib/commercial";
 import { SponsoredTag } from "./editorial";
+import { RankBadge } from "./rank-badge";
 import { ProviderLogo } from "./ui";
 import { Icon } from "./icons";
 import { CompareButton, useComparison } from "./comparison-context";
@@ -68,12 +69,18 @@ export function CategoryComparison({
           const rank = providers.findIndex((item) => item.id === p.id) + 1;
           const sponsored = isPaidPlacement(p.id);
           return (
-            <article className="provider-card" key={p.id} id={p.id}>
+            <article
+              className="provider-card"
+              data-rank={rank}
+              key={p.id}
+              id={p.id}
+            >
               <div className="provider-card-main">
                 <div className="provider-identity">
-                  <span className="provider-rank">
-                    {String(rank).padStart(2, "0")} / {providers.length}
-                  </span>
+                  <div className="provider-rank">
+                    <RankBadge rank={rank} />
+                    <span>of {providers.length}</span>
+                  </div>
                   <ProviderLogo provider={p} large />
                   <span className="provider-type">{p.type}</span>
                   <CompareButton id={p.id} />

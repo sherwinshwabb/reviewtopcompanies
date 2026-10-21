@@ -29,6 +29,7 @@ import {
 } from "./ui";
 import { StructuredData } from "./structured-data";
 import { ReviewedOn, SponsoredTag } from "./editorial";
+import { RankBadge } from "./rank-badge";
 import { Icon } from "./icons";
 import { CategoryComparison } from "./category-comparison";
 import { CompareButton } from "./comparison-context";
@@ -139,17 +140,22 @@ export function CategoryPage({ category: c }: { category: Category }) {
       </section>
       <section className="container quick-picks" aria-label="Quick picks">
         {list.slice(0, 3).map((p, i) => (
-          <Link className="quick-pick" href={`#${p.id}`} key={p.id}>
-            <span className="eyebrow">
-              0{i + 1} · BEST FOR
-              {isPaidPlacement(p.id) && <SponsoredTag />}
-            </span>
-            <h2>{p.name}</h2>
+          <article className="quick-pick" data-rank={i + 1} key={p.id}>
+            <div className="quick-pick-heading">
+              <RankBadge rank={i + 1} />
+              <span className="eyebrow">
+                BEST FOR
+                {isPaidPlacement(p.id) && <SponsoredTag />}
+              </span>
+            </div>
+            <h2>
+              <Link href={`#${p.id}`}>{p.name}</Link>
+            </h2>
             <p>{p.fit}</p>
-            <span className="inline-link">
+            <Link className="inline-link" href={`#${p.id}`}>
               Jump to it <Icon name="arrow" size={15} />
-            </span>
-          </Link>
+            </Link>
+          </article>
         ))}
       </section>
       <nav
@@ -194,13 +200,18 @@ export function CategoryPage({ category: c }: { category: Category }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {list.map((p) => (
-                    <tr key={p.id}>
+                  {list.map((p, i) => (
+                    <tr key={p.id} data-rank={i + 1}>
                       <td>
-                        <Link href={`/reviews/${p.id}`}>{p.name}</Link>
-                        {isPaidPlacement(p.id) && (
-                          <span className="table-sponsored">Sponsored</span>
-                        )}
+                        <div className="table-company">
+                          <RankBadge rank={i + 1} />
+                          <div>
+                            <Link href={`/reviews/${p.id}`}>{p.name}</Link>
+                            {isPaidPlacement(p.id) && (
+                              <span className="table-sponsored">Sponsored</span>
+                            )}
+                          </div>
+                        </div>
                       </td>
                       <td>{p.type}</td>
                       <td>{p.fit}</td>
