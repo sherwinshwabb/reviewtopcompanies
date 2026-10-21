@@ -12,6 +12,7 @@ import { guides } from "@/lib/guides";
 import { reviewedOnLabel } from "@/lib/site";
 import { isPaidPlacement } from "@/lib/commercial";
 import { SponsoredTag } from "./editorial";
+import { RankBadge } from "./rank-badge";
 const goldProviders = providers.filter((p) => p.category === "gold");
 const chips = ["gold", "mortgages", "credit-cards", "banking"].map(
   categoryById,
@@ -218,19 +219,21 @@ export function Home() {
             </div>
             <div className="featured-companies">
               {goldProviders.slice(0, 3).map((p, i) => (
-                <Link
+                <article
                   className="featured-company"
-                  href={`/reviews/${p.id}`}
+                  data-rank={i + 1}
                   key={p.id}
                 >
-                  <span className="feature-rank">0{i + 1}</span>
+                  <RankBadge rank={i + 1} />
                   <ProviderLogo provider={p} />
                   <div className="featured-company-body">
                     <span className="mini-eyebrow">
                       {i === 0 ? "FIRST ON OUR LIST" : "WORTH A LOOK"}
                       {isPaidPlacement(p.id) && <SponsoredTag />}
                     </span>
-                    <h3>{p.name}</h3>
+                    <h3>
+                      <Link href={`/reviews/${p.id}`}>{p.name}</Link>
+                    </h3>
                     <dl className="featured-facts">
                       <div>
                         <dt>Minimum</dt>
@@ -246,10 +249,14 @@ export function Home() {
                       </div>
                     </dl>
                   </div>
-                  <span className="feature-arrow">
+                  <Link
+                    className="feature-arrow"
+                    href={`/reviews/${p.id}`}
+                    aria-label={`Read the ${p.name} review`}
+                  >
                     <Icon name="arrow" size={19} />
-                  </span>
-                </Link>
+                  </Link>
+                </article>
               ))}
               <Link className="all-gold-link" href="/gold/best-gold-companies">
                 See all seven gold companies <Icon name="arrow" size={18} />
