@@ -1,0 +1,362 @@
+{
+  "citadel-gold": {
+    "name": "Citadel Gold",
+    "background": "#2a3328",
+    "inset": false,
+    "width": 1920,
+    "height": 776,
+    "logo": "/companies/citadel-gold.png"
+  },
+  "augusta-precious-metals": {
+    "name": "Augusta Precious Metals",
+    "background": "#1d2436",
+    "inset": false,
+    "width": 1024,
+    "height": 284,
+    "logo": "/companies/augusta-precious-metals.png"
+  },
+  "goldco": {
+    "name": "Goldco",
+    "background": "#222226",
+    "inset": true,
+    "width": 1000,
+    "height": 374,
+    "logo": "/companies/goldco.png"
+  },
+  "birch-gold-group": {
+    "name": "Birch Gold Group",
+    "background": "#efebd8",
+    "inset": false,
+    "width": 1000,
+    "height": 228,
+    "logo": "/companies/birch-gold-group.png"
+  },
+  "american-hartford-gold": {
+    "name": "American Hartford Gold",
+    "background": "#131f4d",
+    "inset": false,
+    "width": 1000,
+    "height": 313,
+    "logo": "/companies/american-hartford-gold.png"
+  },
+  "apmex": {
+    "name": "APMEX",
+    "background": "#082537",
+    "inset": false,
+    "width": 600,
+    "height": 198,
+    "logo": "/companies/apmex.png"
+  },
+  "jm-bullion": {
+    "name": "JM Bullion",
+    "background": "#005aa3",
+    "inset": true,
+    "width": 550,
+    "height": 132,
+    "logo": "/companies/jm-bullion.png"
+  },
+  "rocket-mortgage": {
+    "name": "Rocket Mortgage",
+    "background": "#de3341",
+    "inset": true,
+    "width": 1000,
+    "height": 275,
+    "logo": "/companies/rocket-mortgage.png"
+  },
+  "rate": {
+    "name": "Rate",
+    "background": "#d13239",
+    "inset": true,
+    "width": 345,
+    "height": 220,
+    "logo": "/companies/rate.png"
+  },
+  "better-mortgage": {
+    "name": "Better Mortgage",
+    "background": "#004733",
+    "inset": false,
+    "width": 1000,
+    "height": 308,
+    "logo": "/companies/better-mortgage.png"
+  },
+  "veterans-united": {
+    "name": "Veterans United",
+    "background": "#001941",
+    "inset": false,
+    "width": 490,
+    "height": 88,
+    "logo": "/companies/veterans-united.png"
+  },
+  "pnc-mortgage": {
+    "name": "PNC",
+    "background": "#0069aa",
+    "inset": true,
+    "width": 600,
+    "height": 180,
+    "logo": "/companies/pnc-mortgage.png"
+  },
+  "morgan-and-morgan": {
+    "name": "Morgan & Morgan",
+    "background": "#ffec00",
+    "inset": false,
+    "width": 1000,
+    "height": 274,
+    "logo": "/companies/morgan-and-morgan.png"
+  },
+  "panish-shea-ravipudi": {
+    "name": "Panish Shea Ravipudi",
+    "background": "#154d7d",
+    "inset": false,
+    "width": 1000,
+    "height": 88,
+    "logo": "/companies/panish-shea-ravipudi.png"
+  },
+  "kline-and-specter": {
+    "name": "Kline & Specter",
+    "background": "#112337",
+    "inset": false,
+    "width": 1000,
+    "height": 117,
+    "logo": "/companies/kline-and-specter.png"
+  },
+  "sofi-refinance": {
+    "name": "SoFi",
+    "background": "#00a2c7",
+    "inset": true,
+    "width": 1000,
+    "height": 286,
+    "logo": "/companies/sofi-refinance.png"
+  },
+  "sofi-bank": {
+    "name": "SoFi",
+    "background": "#00a2c7",
+    "inset": true,
+    "width": 1000,
+    "height": 286,
+    "logo": "/companies/sofi-refinance.png"
+  },
+  "earnest": {
+    "name": "Earnest",
+    "background": "#00290f",
+    "inset": true,
+    "width": 1000,
+    "height": 239,
+    "logo": "/companies/earnest.png"
+  },
+  "citizens-refinance": {
+    "name": "Citizens",
+    "background": "#008555",
+    "inset": true,
+    "width": 1000,
+    "height": 168,
+    "logo": "/companies/citizens-refinance.png"
+  },
+  "elfi": {
+    "name": "ELFI",
+    "background": "#003f68",
+    "inset": true,
+    "width": 742,
+    "height": 500,
+    "logo": "/companies/elfi.png"
+  },
+  "chase-freedom-unlimited": {
+    "name": "Chase",
+    "background": "#002f6c",
+    "inset": true,
+    "width": 1000,
+    "height": 190,
+    "logo": "/companies/chase-freedom-unlimited.png"
+  },
+  "chase-sapphire-preferred": {
+    "name": "Chase",
+    "background": "#002f6c",
+    "inset": true,
+    "width": 1000,
+    "height": 190,
+    "logo": "/companies/chase-freedom-unlimited.png"
+  },
+  "chase-bank": {
+    "name": "Chase",
+    "background": "#002f6c",
+    "inset": true,
+    "width": 1000,
+    "height": 190,
+    "logo": "/companies/chase-freedom-unlimited.png"
+  },
+  "citi-double-cash": {
+    "name": "Citi",
+    "background": "#255be3",
+    "inset": true,
+    "width": 864,
+    "height": 500,
+    "logo": "/companies/citi-double-cash.png"
+  },
+  "capital-one-venture": {
+    "name": "Capital One",
+    "background": "#013d5b",
+    "inset": true,
+    "width": 1000,
+    "height": 359,
+    "logo": "/companies/capital-one-venture.png"
+  },
+  "capital-one-bank": {
+    "name": "Capital One",
+    "background": "#013d5b",
+    "inset": true,
+    "width": 1000,
+    "height": 359,
+    "logo": "/companies/capital-one-venture.png"
+  },
+  "amex-blue-cash-everyday": {
+    "name": "American Express",
+    "background": "#006fcf",
+    "inset": false,
+    "width": 1000,
+    "height": 280,
+    "logo": "/companies/amex-blue-cash-everyday.png"
+  },
+  "ally-bank": {
+    "name": "Ally Bank",
+    "background": "#852ef2",
+    "inset": true,
+    "width": 876,
+    "height": 500,
+    "logo": "/companies/ally-bank.png"
+  },
+  "marcus": {
+    "name": "Marcus",
+    "background": "#22263f",
+    "inset": true,
+    "width": 400,
+    "height": 126,
+    "logo": "/companies/marcus.png"
+  },
+  "knight-law-group": {
+    "name": "Knight Law Group",
+    "background": "#3f5179",
+    "inset": false,
+    "width": 457,
+    "height": 90,
+    "logo": "/companies/knight-law-group.png"
+  },
+  "strategic-legal-practices": {
+    "name": "Strategic Legal Practices",
+    "background": "#181818",
+    "inset": false,
+    "width": 451,
+    "height": 70,
+    "logo": "/companies/strategic-legal-practices.png"
+  },
+  "kimmel-and-silverman": {
+    "name": "Kimmel & Silverman",
+    "background": "#112337",
+    "inset": true,
+    "width": 400,
+    "height": 162,
+    "logo": "/companies/kimmel-and-silverman.png"
+  },
+  "national-debt-relief": {
+    "name": "National Debt Relief",
+    "background": "#1f2147",
+    "inset": false,
+    "width": 446,
+    "height": 500,
+    "logo": "/companies/national-debt-relief.png"
+  },
+  "freedom-debt-relief": {
+    "name": "Freedom Debt Relief",
+    "background": "#002d87",
+    "inset": false,
+    "width": 912,
+    "height": 500,
+    "logo": "/companies/freedom-debt-relief.png"
+  },
+  "accredited-debt-relief": {
+    "name": "Accredited Debt Relief",
+    "background": "#297ea2",
+    "inset": true,
+    "width": 1000,
+    "height": 313,
+    "logo": "/companies/accredited-debt-relief.png"
+  },
+  "greenpath": {
+    "name": "GreenPath",
+    "background": "#102446",
+    "inset": true,
+    "width": 1000,
+    "height": 189,
+    "logo": "/companies/greenpath.png"
+  },
+  "money-management-international": {
+    "name": "Money Management International",
+    "background": "#003a70",
+    "inset": true,
+    "width": 1000,
+    "height": 492,
+    "logo": "/companies/money-management-international.png"
+  },
+  "sky-blue-credit": {
+    "name": "Sky Blue Credit",
+    "background": "#0d3a8e",
+    "inset": true,
+    "width": 1000,
+    "height": 269,
+    "logo": "/companies/sky-blue-credit.png"
+  },
+  "the-credit-people": {
+    "name": "The Credit People",
+    "background": "#1570b7",
+    "inset": true,
+    "width": 310,
+    "height": 60,
+    "logo": "/companies/the-credit-people.png"
+  },
+  "credit-saint": {
+    "name": "Credit Saint",
+    "background": "#08324c",
+    "inset": true,
+    "width": 1000,
+    "height": 251,
+    "logo": "/companies/credit-saint.png"
+  },
+  "fidelity": {
+    "name": "Fidelity",
+    "background": "#368727",
+    "inset": false,
+    "width": 1000,
+    "height": 287,
+    "logo": "/companies/fidelity.png"
+  },
+  "charles-schwab": {
+    "name": "Charles Schwab",
+    "background": "#009cdb",
+    "inset": false,
+    "width": 500,
+    "height": 500,
+    "logo": "/companies/charles-schwab.png"
+  },
+  "vanguard": {
+    "name": "Vanguard",
+    "background": "#c20029",
+    "inset": false,
+    "width": 499,
+    "height": 500,
+    "logo": "/companies/vanguard.png"
+  },
+  "betterment": {
+    "name": "Betterment",
+    "background": "#000b50",
+    "inset": false,
+    "width": 1000,
+    "height": 138,
+    "logo": "/companies/betterment.png"
+  },
+  "wealthfront": {
+    "name": "Wealthfront",
+    "background": "#4840ba",
+    "inset": false,
+    "width": 1000,
+    "height": 130,
+    "logo": "/companies/wealthfront.png"
+  }
+}

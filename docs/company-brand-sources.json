@@ -1,0 +1,670 @@
+{
+  "retrieved": "2026-10-01",
+  "notes": "Assets sourced from official company pages and their linked CDNs. Brand backgrounds sampled from live site CSS or logo artwork; these are presentation choices, not a claim of access to formal brand guidelines. SVG and WebP originals rasterized to PNG, preserving artwork. Inline SVGs include their site color styles. Inset white panels preserve contrast without recoloring official logos. Shared issuers reuse one brand asset.",
+  "brands": [
+    {
+      "key": "citadel-gold",
+      "ids": [
+        "citadel-gold"
+      ],
+      "name": "Citadel Gold",
+      "background": "#2a3328",
+      "inset": false,
+      "width": 1920,
+      "height": 776,
+      "sourceFormat": "png",
+      "source": "/Volumes/T9-Citadel/repos/citadel-website/public/citadel-logo-official.png",
+      "sourcePage": "/Volumes/T9-Citadel/repos/citadel-website/app/components/Header.tsx",
+      "palette": [
+        "#2a3328",
+        "#d4af37",
+        "#f5f0e8"
+      ],
+      "colorSource": "/Volumes/T9-Citadel/repos/citadel-website/app/components/blocks/HomepageHero.tsx"
+    },
+    {
+      "key": "augusta-precious-metals",
+      "ids": [
+        "augusta-precious-metals"
+      ],
+      "name": "Augusta Precious Metals",
+      "background": "#1d2436",
+      "source": "https://www.augustapreciousmetals.com/wp-content/uploads/2026/04/241015_New-Logo-Variations_JP_Horizontal-Dark-Mode-No-Tagline-1024x284.png",
+      "sourcePage": "https://www.augustapreciousmetals.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 1024,
+      "height": 284,
+      "colorSource": "https://www.augustapreciousmetals.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "goldco",
+      "ids": [
+        "goldco"
+      ],
+      "name": "Goldco",
+      "background": "#222226",
+      "source": "https://goldco.com/wp-content/uploads/2021/07/Logo.svg",
+      "sourcePage": "https://goldco.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 374,
+      "colorSource": "https://goldco.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "birch-gold-group",
+      "ids": [
+        "birch-gold-group"
+      ],
+      "name": "Birch Gold Group",
+      "background": "#efebd8",
+      "source": "https://www.birchgold.com/wp-content/themes/bgg-theme/images/footer-brand.svg",
+      "sourcePage": "https://www.birchgold.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 228,
+      "colorSource": "https://www.birchgold.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "american-hartford-gold",
+      "ids": [
+        "american-hartford-gold"
+      ],
+      "name": "American Hartford Gold",
+      "background": "#131f4d",
+      "source": "https://www.americanhartfordgold.com/#inline-logo-14",
+      "sourcePage": "https://www.americanhartfordgold.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 313,
+      "colorSource": "https://www.americanhartfordgold.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "apmex",
+      "ids": [
+        "apmex"
+      ],
+      "name": "APMEX",
+      "background": "#082537",
+      "source": "https://www.images-apmex.com/content/images/content/logo-white.png",
+      "sourcePage": "https://www.apmex.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 600,
+      "height": 198,
+      "colorSource": "https://www.apmex.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "jm-bullion",
+      "ids": [
+        "jm-bullion"
+      ],
+      "name": "JM Bullion",
+      "background": "#005aa3",
+      "source": "https://cdn.jmbullion.com/wp-content/themes/JMBullion/images/logo-lrg.png?v=20260928",
+      "sourcePage": "https://www.jmbullion.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 550,
+      "height": 132,
+      "colorSource": "https://www.jmbullion.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "rocket-mortgage",
+      "ids": [
+        "rocket-mortgage"
+      ],
+      "name": "Rocket Mortgage",
+      "background": "#de3341",
+      "source": "https://prod.rockmedialibrary.com/api/public/content/R4M-RocketMortgageLogoStacked?v=81fe94e4",
+      "sourcePage": "https://www.rocketmortgage.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 275,
+      "colorSource": "https://www.rocketmortgage.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "rate",
+      "ids": [
+        "rate"
+      ],
+      "name": "Rate",
+      "background": "#d13239",
+      "source": "https://dih4lvql8rjzt.cloudfront.net/cms/8d29c03a-1b06-48dd-9f69-7dd554f49220_rate-arrow-logo.png",
+      "sourcePage": "https://www.rate.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 345,
+      "height": 220,
+      "colorSource": "Dominant non-neutral color in the official logo PNG."
+    },
+    {
+      "key": "better-mortgage",
+      "ids": [
+        "better-mortgage"
+      ],
+      "name": "Better Mortgage",
+      "background": "#004733",
+      "source": "https://better.com/#inline-logo-8",
+      "sourcePage": "https://better.com/",
+      "inset": false,
+      "svgColor": "#ffffff",
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 308,
+      "colorSource": "https://better.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "veterans-united",
+      "ids": [
+        "veterans-united"
+      ],
+      "name": "Veterans United",
+      "background": "#001941",
+      "source": "https://www.veteransunited.com/assets/v5/images/brand/logo-veterans-united-home-loans-white.png",
+      "sourcePage": "https://www.veteransunited.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 490,
+      "height": 88,
+      "colorSource": "https://www.veteransunited.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "pnc-mortgage",
+      "ids": [
+        "pnc-mortgage"
+      ],
+      "name": "PNC Home Lending",
+      "background": "#0069aa",
+      "source": "https://d1io3yog0oux5.cloudfront.net/_8d9cd15ea0e996cc4d2e428068d5f874/pnc/logo.png",
+      "sourcePage": "https://investor.pnc.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 600,
+      "height": 180,
+      "colorSource": "Dominant non-neutral color in the official logo PNG."
+    },
+    {
+      "key": "morgan-and-morgan",
+      "ids": [
+        "morgan-and-morgan"
+      ],
+      "name": "Morgan & Morgan",
+      "background": "#ffec00",
+      "source": "https://www.forthepeople.com/#inline-logo-0",
+      "sourcePage": "https://www.forthepeople.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 274,
+      "colorSource": "https://www.forthepeople.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "panish-shea-ravipudi",
+      "ids": [
+        "panish-shea-ravipudi"
+      ],
+      "name": "Panish Shea Ravipudi",
+      "background": "#154d7d",
+      "source": "https://www.panish.law/wp-content/uploads/2024/01/PSR-logo-white.svg",
+      "sourcePage": "https://www.panish.law/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 88,
+      "colorSource": "https://www.panish.law/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "kline-and-specter",
+      "ids": [
+        "kline-and-specter"
+      ],
+      "name": "Kline & Specter",
+      "background": "#112337",
+      "source": "https://www.klinespecter.com/wp-content/uploads/2024/12/KlineSpecterLogoRebuild_wht2.svg",
+      "sourcePage": "https://www.klinespecter.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 117,
+      "colorSource": "https://www.klinespecter.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "sofi-refinance",
+      "ids": [
+        "sofi-refinance",
+        "sofi-bank"
+      ],
+      "name": "SoFi",
+      "background": "#00a2c7",
+      "source": "https://d32ijn7u0aqfv4.cloudfront.net/git/svgs/sofi-logo.svg",
+      "sourcePage": "https://www.sofi.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 286,
+      "colorSource": "https://www.sofi.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "earnest",
+      "ids": [
+        "earnest"
+      ],
+      "name": "Earnest",
+      "background": "#00290f",
+      "source": "https://a-us.storyblok.com/f/1015171/159x38/7c9aca15f8/earnest.svg",
+      "sourcePage": "https://www.earnest.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 239,
+      "colorSource": "https://www.earnest.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "citizens-refinance",
+      "ids": [
+        "citizens-refinance"
+      ],
+      "name": "Citizens",
+      "background": "#008555",
+      "source": "https://www.citizensbank.com/assets/CB_resources/images/cbds-logos/logo-citizens__horz-green.svg",
+      "sourcePage": "https://www.citizensbank.com/homepage.aspx",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 168,
+      "colorSource": "https://www.citizensbank.com/homepage.aspx (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "elfi",
+      "ids": [
+        "elfi"
+      ],
+      "name": "ELFI",
+      "background": "#003f68",
+      "source": "https://www.elfi.com/wp-content/uploads/2024/05/elfi_logo-1.svg",
+      "sourcePage": "https://www.elfi.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 742,
+      "height": 500,
+      "colorSource": "https://www.elfi.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "chase-freedom-unlimited",
+      "ids": [
+        "chase-freedom-unlimited",
+        "chase-sapphire-preferred",
+        "chase-bank"
+      ],
+      "name": "Chase Freedom Unlimited",
+      "background": "#002f6c",
+      "source": "https://www.chase.com/content/dam/unified-assets/logo/chase/chase-logo/additional-file-formats/logo_chase_headerfooter.svg",
+      "sourcePage": "https://www.chase.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 190,
+      "colorSource": "https://www.chase.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "citi-double-cash",
+      "ids": [
+        "citi-double-cash"
+      ],
+      "name": "Citi Double Cash",
+      "background": "#255be3",
+      "source": "https://www.citigroup.com/#header-logo",
+      "sourcePage": "https://www.citigroup.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 864,
+      "height": 500,
+      "colorSource": "https://www.citigroup.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "capital-one-venture",
+      "ids": [
+        "capital-one-venture",
+        "capital-one-bank"
+      ],
+      "name": "Capital One Venture Rewards",
+      "background": "#013d5b",
+      "source": "https://www.capitalone.com/#inline-logo-0",
+      "sourcePage": "https://www.capitalone.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 359,
+      "colorSource": "https://www.capitalone.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "amex-blue-cash-everyday",
+      "ids": [
+        "amex-blue-cash-everyday"
+      ],
+      "name": "Amex Blue Cash Everyday",
+      "background": "#006fcf",
+      "source": "https://www.aexp-static.com/cdaas/one/statics/axp-static-assets/1.8.0/package/dist/img/logos/dls-logo-stack-white.svg",
+      "sourcePage": "https://www.americanexpress.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 280,
+      "colorSource": "https://www.americanexpress.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "ally-bank",
+      "ids": [
+        "ally-bank"
+      ],
+      "name": "Ally Bank",
+      "background": "#852ef2",
+      "source": "https://www.ally.com/#inline-logo-0",
+      "sourcePage": "https://www.ally.com/",
+      "inset": true,
+      "svgColor": "#16052b",
+      "sourceFormat": "svg",
+      "width": 876,
+      "height": 500,
+      "colorSource": "https://www.ally.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "marcus",
+      "ids": [
+        "marcus"
+      ],
+      "name": "Marcus",
+      "background": "#22263f",
+      "source": "https://www.goldmansachs.com/images/migrated/our-firm/history/moments/150th-multimedia/2016-marcus/marcus.png",
+      "sourcePage": "https://www.goldmansachs.com/our-firm/history/moments/2016-marcus",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "jpeg",
+      "width": 400,
+      "height": 126,
+      "colorSource": "https://www.goldmansachs.com/our-firm/history/moments/2016-marcus (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "knight-law-group",
+      "ids": [
+        "knight-law-group"
+      ],
+      "name": "Knight Law Group",
+      "background": "#3f5179",
+      "source": "https://knightlaw.com/wp-content/uploads/2023/05/klg_logo.png",
+      "sourcePage": "https://knightlaw.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 457,
+      "height": 90,
+      "colorSource": "https://knightlaw.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "strategic-legal-practices",
+      "ids": [
+        "strategic-legal-practices"
+      ],
+      "name": "Strategic Legal Practices",
+      "background": "#181818",
+      "source": "https://slpattorney.com/wp-content/themes/paperstreet/images/logo.png",
+      "sourcePage": "https://slpattorney.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 451,
+      "height": 70,
+      "colorSource": "https://slpattorney.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "kimmel-and-silverman",
+      "ids": [
+        "kimmel-and-silverman"
+      ],
+      "name": "Kimmel & Silverman",
+      "background": "#112337",
+      "source": "https://www.lemonlaw.com/wp-content/themes/lemonlaw/assets/images/1-800-lemonlaw-400.webp",
+      "sourcePage": "https://www.lemonlaw.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "webp",
+      "width": 400,
+      "height": 162,
+      "colorSource": "https://www.lemonlaw.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "national-debt-relief",
+      "ids": [
+        "national-debt-relief"
+      ],
+      "name": "National Debt Relief",
+      "background": "#1f2147",
+      "source": "https://www.nationaldebtrelief.com/wp-content/uploads/2025/09/registered-trademark-shield-white-1-1.svg",
+      "sourcePage": "https://www.nationaldebtrelief.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 446,
+      "height": 500,
+      "colorSource": "https://www.nationaldebtrelief.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "freedom-debt-relief",
+      "ids": [
+        "freedom-debt-relief"
+      ],
+      "name": "Freedom Debt Relief",
+      "background": "#002d87",
+      "source": "https://www.freedomdebtrelief.com/next-assets/icons/fdr-logo-white.svg",
+      "sourcePage": "https://www.freedomdebtrelief.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 912,
+      "height": 500,
+      "colorSource": "https://www.freedomdebtrelief.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "accredited-debt-relief",
+      "ids": [
+        "accredited-debt-relief"
+      ],
+      "name": "Accredited Debt Relief",
+      "background": "#297ea2",
+      "source": "https://www.accrediteddebtrelief.com/vite/assets/adr-adr-Djx7b7Oh.svg",
+      "sourcePage": "https://www.accrediteddebtrelief.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 313,
+      "colorSource": "https://www.accrediteddebtrelief.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "greenpath",
+      "ids": [
+        "greenpath"
+      ],
+      "name": "GreenPath",
+      "background": "#102446",
+      "source": "https://www.greenpath.com/wp-content/uploads/2024/08/GreenPath_Logo_Full-Color.svg",
+      "sourcePage": "https://www.greenpath.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 189,
+      "colorSource": "https://www.greenpath.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "money-management-international",
+      "ids": [
+        "money-management-international"
+      ],
+      "name": "Money Management International",
+      "background": "#003a70",
+      "source": "https://www.moneymanagement.org/-/media/Money-Management/Images/Logo/MMI-2023-Mark-1-Horizontal-Color-RGB-Registered.svg?h=56&w=395&la=en&hash=35F1C95BD3E72840E58E96C57C17E0BE",
+      "sourcePage": "https://www.moneymanagement.org/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 492,
+      "colorSource": "https://www.moneymanagement.org/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "sky-blue-credit",
+      "ids": [
+        "sky-blue-credit"
+      ],
+      "name": "Sky Blue Credit",
+      "background": "#0d3a8e",
+      "source": "https://skybluecredit.com/wp-content/themes/sky-blue-credit/images/logo-nowords.svg",
+      "sourcePage": "https://skybluecredit.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 269,
+      "colorSource": "https://skybluecredit.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "the-credit-people",
+      "ids": [
+        "the-credit-people"
+      ],
+      "name": "The Credit People",
+      "background": "#1570b7",
+      "source": "https://www.thecreditpeople.com/sites/default/files/TCPlogo1outline.png",
+      "sourcePage": "https://www.thecreditpeople.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "png",
+      "width": 310,
+      "height": 60,
+      "colorSource": "Dominant non-neutral color in the official logo PNG."
+    },
+    {
+      "key": "credit-saint",
+      "ids": [
+        "credit-saint"
+      ],
+      "name": "Credit Saint",
+      "background": "#08324c",
+      "source": "https://cdn.creditsaint.com/webapp/img/newDesign/cs-new-logo.svg",
+      "sourcePage": "https://www.creditsaint.com/",
+      "inset": true,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 251,
+      "colorSource": "https://www.creditsaint.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "fidelity",
+      "ids": [
+        "fidelity"
+      ],
+      "name": "Fidelity",
+      "background": "#368727",
+      "source": "https://www.fidelity.com/#inline-logo-0",
+      "sourcePage": "https://www.fidelity.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 287,
+      "colorSource": "https://www.fidelity.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "charles-schwab",
+      "ids": [
+        "charles-schwab"
+      ],
+      "name": "Charles Schwab",
+      "background": "#009cdb",
+      "source": "https://www.schwab.com/#inline-logo-5",
+      "sourcePage": "https://www.schwab.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 500,
+      "height": 500,
+      "colorSource": "https://www.schwab.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "vanguard",
+      "ids": [
+        "vanguard"
+      ],
+      "name": "Vanguard",
+      "background": "#c20029",
+      "source": "https://corporate.vanguard.com/etc.clientlibs/corporatesite/clientlibs/clientlib-site/resources/icons/vanguardLogos/VGVMWhite.svg",
+      "sourcePage": "https://corporate.vanguard.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 499,
+      "height": 500,
+      "colorSource": "https://corporate.vanguard.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "betterment",
+      "ids": [
+        "betterment"
+      ],
+      "name": "Betterment",
+      "background": "#000b50",
+      "source": "https://www.betterment.com/#inline-logo-0",
+      "sourcePage": "https://www.betterment.com/",
+      "inset": false,
+      "svgColor": "#ffffff",
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 138,
+      "colorSource": "https://www.betterment.com/ (linked stylesheet or logo artwork)"
+    },
+    {
+      "key": "wealthfront",
+      "ids": [
+        "wealthfront"
+      ],
+      "name": "Wealthfront",
+      "background": "#4840ba",
+      "source": "https://www.wealthfront.com/next/contenthash/next/svg/optimized/wordmark-surface-dark.contenthash.0eff70a79bddf191f2be3b9c62051ae9a9c7619e.svg",
+      "sourcePage": "https://www.wealthfront.com/",
+      "inset": false,
+      "svgColor": null,
+      "sourceFormat": "svg",
+      "width": 1000,
+      "height": 130,
+      "colorSource": "https://www.wealthfront.com/ (linked stylesheet or logo artwork)"
+    }
+  ]
+}
