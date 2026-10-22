@@ -166,23 +166,21 @@ test("indexing controls, branding assets, canonical metadata, and error handling
   expect(redirect.headers().location).toBe("/gold/best-gold-companies");
 });
 
-test("the paid gold listing is labeled Sponsored wherever it is ranked and links carry the right rel", async ({
+test("the paid gold listing carries one Sponsored line on its category card and links carry the right rel", async ({
   request,
 }) => {
   const label =
     'class="sponsored-tag" href="/advertising-disclosure">Sponsored</a>';
-  for (const path of ["/", "/gold/best-gold-companies"]) {
-    const html = await (await request.get(path)).text();
-    expect(html, path).toContain(label);
-    expect(html, path).not.toMatch(
-      /our top pick|featured pick|editor.?s pick/i,
-    );
-  }
-  expect(await (await request.get("/advertising-disclosure")).text()).toContain(
-    "Citadel Gold pays for the #1 spot",
-  );
   const home = await (await request.get("/")).text();
   const gold = await (await request.get("/gold/best-gold-companies")).text();
+  expect(gold.split(label).length - 1).toBe(1);
+  expect(gold).not.toContain("table-sponsored");
+  expect(home).not.toContain('class="sponsored-tag"');
+  for (const html of [home, gold])
+    expect(html).not.toMatch(/our top pick|featured pick|editor.?s pick/i);
+  expect(await (await request.get("/advertising-disclosure")).text()).toContain(
+    "first position in our gold comparison is a paid placement",
+  );
   const homeTop = [
     ...home
       .slice(home.indexOf('class="featured-companies"'))
@@ -217,6 +215,9 @@ test("the paid gold listing is labeled Sponsored wherever it is ranked and links
   for (const category of categories) {
     const html = await (await request.get(category.path)).text();
     expect(html, category.path).toContain("Last reviewed");
+    expect(html, category.path).toContain(
+      'class="disclosure-line"><a href="/advertising-disclosure">Advertising disclosure</a>',
+    );
     expect(html, category.path).toContain('dateTime="2026-10-21"');
     expect(html, category.path).toContain('id="compare-table"');
     expect(html, category.path).toContain("The top three on our list.");

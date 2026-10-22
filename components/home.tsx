@@ -10,8 +10,6 @@ import {
 import { providers, categoryById } from "@/lib/catalog";
 import { guides } from "@/lib/guides";
 import { reviewedOnLabel } from "@/lib/site";
-import { isPaidPlacement } from "@/lib/commercial";
-import { SponsoredTag } from "./editorial";
 import { RankBadge } from "./rank-badge";
 const goldProviders = providers.filter((p) => p.category === "gold");
 const chips = ["gold", "mortgages", "credit-cards", "banking"].map(
@@ -207,8 +205,8 @@ export function Home() {
                 <div>
                   <dt>How order works</dt>
                   <dd>
-                    Our list. A paid position is labeled{" "}
-                    <Link href="/advertising-disclosure">Sponsored</Link>.
+                    Our list, 1 to 3.{" "}
+                    <Link href="/advertising-disclosure">Disclosure</Link>
                   </dd>
                 </div>
                 <div>
@@ -229,7 +227,6 @@ export function Home() {
                   <div className="featured-company-body">
                     <span className="mini-eyebrow">
                       {i === 0 ? "FIRST ON OUR LIST" : "WORTH A LOOK"}
-                      {isPaidPlacement(p.id) && <SponsoredTag />}
                     </span>
                     <h3>
                       <Link href={`/reviews/${p.id}`}>{p.name}</Link>

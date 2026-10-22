@@ -379,8 +379,7 @@ export const staticSeo: Record<string, StaticSeo> = {
   },
   "/advertising-disclosure": {
     title: "Advertising Disclosure",
-    description:
-      'What a "Sponsored" label means on this site and which listing is a paid position.',
+    description: "Which listing on this site is a paid placement.",
   },
   "/advertise": {
     title: "Work With Us: Partnerships & Listings",

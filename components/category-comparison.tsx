@@ -89,9 +89,11 @@ export function CategoryComparison({
                   <CompareButton id={p.id} />
                 </div>
                 <div className="provider-description">
-                  <span className="eyebrow">
-                    BEST FOR{sponsored && <SponsoredTag />}
-                  </span>
+                  {sponsored ? (
+                    <SponsoredTag />
+                  ) : (
+                    <span className="eyebrow">BEST FOR</span>
+                  )}
                   <h2>
                     <Link href={`/reviews/${p.id}`}>{p.name}</Link>
                   </h2>

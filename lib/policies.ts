@@ -168,7 +168,7 @@ export const policies: Record<
     title: "Advertising disclosure.",
     eyebrow: "ADVERTISING DISCLOSURE",
     intro:
-      'A listing marked "Sponsored" is a paid position. Citadel Gold pays for the #1 spot in our gold comparison. Paid position is not a score and does not change what we write about any company.',
+      "Citadel Gold’s first position in our gold comparison is a paid placement.",
     sections: [],
   },
   advertise: {

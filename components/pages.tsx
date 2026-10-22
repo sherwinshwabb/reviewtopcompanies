@@ -28,7 +28,7 @@ import {
   MethodSteps,
 } from "./ui";
 import { StructuredData } from "./structured-data";
-import { ReviewedOn, SponsoredTag } from "./editorial";
+import { ReviewedOn } from "./editorial";
 import { RankBadge } from "./rank-badge";
 import { Icon } from "./icons";
 import { CategoryComparison } from "./category-comparison";
@@ -114,6 +114,10 @@ export function CategoryPage({ category: c }: { category: Category }) {
               <Icon name="book" size={16} /> Our criteria
             </Link>
           </div>
+          <p className="disclosure-line">
+            <Link href="/advertising-disclosure">Advertising disclosure</Link> ·{" "}
+            <Link href={`/methodology/${c.id}`}>Our methodology</Link>
+          </p>
           <dl className="page-stats" aria-label="About this comparison">
             <div>
               <dt>
@@ -157,10 +161,7 @@ export function CategoryPage({ category: c }: { category: Category }) {
             <article className="quick-pick" data-rank={i + 1} key={p.id}>
               <div className="quick-pick-heading">
                 <RankBadge rank={i + 1} of={list.length} />
-                <span className="eyebrow">
-                  BEST FOR
-                  {isPaidPlacement(p.id) && <SponsoredTag />}
-                </span>
+                <span className="eyebrow">BEST FOR</span>
               </div>
               <h2>
                 <Link href={`#${p.id}`}>{p.name}</Link>
@@ -222,9 +223,6 @@ export function CategoryPage({ category: c }: { category: Category }) {
                           <RankBadge rank={i + 1} of={list.length} />
                           <div>
                             <Link href={`/reviews/${p.id}`}>{p.name}</Link>
-                            {isPaidPlacement(p.id) && (
-                              <span className="table-sponsored">Sponsored</span>
-                            )}
                           </div>
                         </div>
                       </td>
