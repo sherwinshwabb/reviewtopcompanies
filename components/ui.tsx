@@ -72,9 +72,20 @@ const defaultCategoryOrder = [
 ];
 export function CategoryGrid({
   items = defaultCategoryOrder,
+  uniform = false,
 }: {
   items?: Category[];
+  uniform?: boolean;
 }) {
+  if (uniform) {
+    return (
+      <div className="category-grid category-grid-uniform">
+        {items.map((c) => (
+          <CategoryCard key={c.id} category={c} />
+        ))}
+      </div>
+    );
+  }
   const featured = items.slice(0, 3);
   const rest = items.slice(3);
   return (
