@@ -1,7 +1,7 @@
 /**
- * Paid placements. The listing is labeled "Sponsored" wherever the ranking
- * appears, the label links to /advertising-disclosure, and the company's
- * outbound links carry rel="sponsored". Nothing else is required.
+ * Paid placement. The listing carries one "Sponsored" line on its category
+ * card, linking to /advertising-disclosure, and its outbound links carry
+ * rel="sponsored". Nothing else is marked.
  */
 export const goldPaidPlacement = {
   providerId: "citadel-gold",

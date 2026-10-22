@@ -889,9 +889,7 @@ summary:focus-visible,
   position: absolute;
   inset: 0;
 }
-.featured-company .sponsored-tag,
 .featured-company .feature-arrow,
-.quick-pick .sponsored-tag,
 .quick-pick .inline-link {
   position: relative;
   z-index: 1;
@@ -3616,6 +3614,10 @@ summary:focus-visible,
     font-size: 9px;
     letter-spacing: 0.9px;
   }
+  .disclosure-line {
+    font-size: 10px;
+    line-height: 1.8;
+  }
   .provider-description h2 {
     font-size: 30px;
     margin-top: 9px;
@@ -4386,25 +4388,23 @@ summary:focus-visible,
 }
 
 /* ---- Category page additions: disclosure, stats, quick picks, jump nav, table, explainers ---- */
-.sponsored-tag,
-.table-sponsored {
+.sponsored-tag {
   display: inline-block;
-  margin-left: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  color: #6b7780;
-  border: 1px solid #c9d1d4;
-  padding: 1px 6px;
-  border-radius: 3px;
-  vertical-align: middle;
+  color: #a8a39d;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
   text-decoration: none;
-  line-height: 1.4;
 }
-.mini-eyebrow .sponsored-tag {
-  color: rgba(230, 236, 238, 0.75);
-  border-color: rgba(230, 236, 238, 0.4);
+.disclosure-line {
+  font-size: 11px;
+  margin-top: 20px;
+  color: #7a868a;
+}
+.disclosure-line a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .page-stats {
   display: flex;
@@ -4694,19 +4694,6 @@ summary:focus-visible,
 .category-table tr[data-rank="1"] td:first-child {
   box-shadow: inset 3px 0 #b58c3d;
 }
-.table-sponsored {
-  display: inline-block;
-  margin-left: 8px;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  color: #7a5d24;
-  background: #f1e9d2;
-  padding: 2px 6px;
-  border-radius: 3px;
-  vertical-align: middle;
-}
 .overview-item {
   margin-top: 28px;
 }
@@ -4742,14 +4729,6 @@ summary:focus-visible,
   .page-stats dd {
     font-size: 18px;
   }
-}
-.featured-company .mini-eyebrow .sponsored-tag {
-  margin-left: 8px;
-  font-size: 9px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  font-weight: 600;
-  vertical-align: middle;
 }
 
 /* ---- Editorial pass: larger readable text, actionable hero, category hierarchy, richer gold rows ---- */
@@ -5057,11 +5036,6 @@ body {
   font-size: 14px;
   padding-top: 14px;
 }
-.mini-eyebrow .sponsored-tag {
-  font-size: 10px;
-  color: #e3ebee;
-  border-color: #ffffff55;
-}
 /* Guides */
 .guide-meta {
   font-size: 11px;
@@ -5217,12 +5191,6 @@ body {
 .intro-description {
   font-size: 18px;
   line-height: 1.7;
-}
-.sponsored-tag,
-.table-sponsored {
-  font-size: 11px;
-  color: #56646c;
-  border-color: #b9c3c7;
 }
 @media (max-width: 1190px) {
   .hero-grid {
