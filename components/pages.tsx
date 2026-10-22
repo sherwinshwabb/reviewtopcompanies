@@ -138,25 +138,40 @@ export function CategoryPage({ category: c }: { category: Category }) {
           </dl>
         </div>
       </section>
-      <section className="container quick-picks" aria-label="Quick picks">
-        {list.slice(0, 3).map((p, i) => (
-          <article className="quick-pick" data-rank={i + 1} key={p.id}>
-            <div className="quick-pick-heading">
-              <RankBadge rank={i + 1} />
-              <span className="eyebrow">
-                BEST FOR
-                {isPaidPlacement(p.id) && <SponsoredTag />}
-              </span>
-            </div>
-            <h2>
-              <Link href={`#${p.id}`}>{p.name}</Link>
-            </h2>
-            <p>{p.fit}</p>
-            <Link className="inline-link" href={`#${p.id}`}>
-              Jump to it <Icon name="arrow" size={15} />
-            </Link>
-          </article>
-        ))}
+      <section className="container quick-picks-section" aria-label="Top three">
+        <div className="quick-picks-heading">
+          <div>
+            <span className="eyebrow">RANKED 1 · 2 · 3</span>
+            <h2>The top three on our list.</h2>
+          </div>
+          <p>
+            {list.length} {noun === "card" ? "cards" : "companies"} compared.{" "}
+            {list.length > 3
+              ? `Ranks 4 to ${list.length} follow in the full list below.`
+              : "All three are covered in full below."}{" "}
+            <Link href={`/methodology/${c.id}`}>How we rank</Link>
+          </p>
+        </div>
+        <div className="quick-picks">
+          {list.slice(0, 3).map((p, i) => (
+            <article className="quick-pick" data-rank={i + 1} key={p.id}>
+              <div className="quick-pick-heading">
+                <RankBadge rank={i + 1} of={list.length} />
+                <span className="eyebrow">
+                  BEST FOR
+                  {isPaidPlacement(p.id) && <SponsoredTag />}
+                </span>
+              </div>
+              <h2>
+                <Link href={`#${p.id}`}>{p.name}</Link>
+              </h2>
+              <p>{p.fit}</p>
+              <Link className="inline-link" href={`#${p.id}`}>
+                Jump to it <Icon name="arrow" size={15} />
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
       <nav
         className="container comparison-jump"
@@ -204,7 +219,7 @@ export function CategoryPage({ category: c }: { category: Category }) {
                     <tr key={p.id} data-rank={i + 1}>
                       <td>
                         <div className="table-company">
-                          <RankBadge rank={i + 1} />
+                          <RankBadge rank={i + 1} of={list.length} />
                           <div>
                             <Link href={`/reviews/${p.id}`}>{p.name}</Link>
                             {isPaidPlacement(p.id) && (
@@ -358,9 +373,9 @@ export function CategoryPage({ category: c }: { category: Category }) {
 }
 export function ReviewPage({ provider: p }: { provider: Provider }) {
   const c = categoryById(p.category);
-  const alternatives = providersFor(c.id)
-    .filter((x) => x.id !== p.id)
-    .slice(0, 3);
+  const peers = providersFor(c.id);
+  const rank = peers.findIndex((x) => x.id === p.id) + 1;
+  const alternatives = peers.filter((x) => x.id !== p.id).slice(0, 3);
   const related = guides.filter((g) => g.category === c.id).slice(0, 3);
   return (
     <main id="main-content">
@@ -401,9 +416,13 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
             <p className="lead-paragraph">{p.summary}</p>
             <dl className="fact-grid">
               <div>
-                <dt>Category</dt>
+                <dt>{isPaidPlacement(p.id) ? "Listed in" : "Our ranking"}</dt>
                 <dd>
-                  <Link href={c.path}>{c.short}</Link>
+                  <Link href={c.path}>
+                    {isPaidPlacement(p.id)
+                      ? `${c.short} comparison`
+                      : `#${rank} of ${peers.length} in ${c.short}`}
+                  </Link>
                 </dd>
               </div>
               <div>

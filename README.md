@@ -134,6 +134,12 @@ The scale illustration annualizes to $2.7 million in revenue, not profit or comp
 
 The guide budgets a gold launch at $13,000–$33,000 plus 15–20% contingency, and $2,000–$6,000 per month in editorial and operating work, excluding advertising and platform expenses. Treat these as planning allocations to validate, not quotes. The software preview does not remove the need to fund research, distribution, and ongoing updates.
 
+## Ranking order
+
+- Every category shows a ranked list. The top three carry gold, silver, and bronze medals (`RankBadge`) on the quick picks, the provider cards, and the at-a-glance table; ranks 4 and up show a plain number.
+- `lib/ranking.ts` builds the order. Citadel Gold is pinned to #1 in gold (`pinnedFirst`); every other company in every category is shuffled with a seed fixed for the whole build, so the homepage, category pages, review pages, and search all agree.
+- The seed is `RANK_SEED` from `next.config.ts`, defaulting to the build date. Each deploy reshuffles; set `RANK_SEED=anything` before `next build` to freeze an order.
+
 ## Maintenance
 
 - Monitor provider destinations, technical failures, and changing offers.

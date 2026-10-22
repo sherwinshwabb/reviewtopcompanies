@@ -47,7 +47,7 @@ export function CategoryComparison({
             value={sort}
             onChange={(e) => setSort(e.target.value)}
           >
-            <option value="featured">Our order</option>
+            <option value="featured">Our ranking</option>
             <option value="name">Name A–Z</option>
           </select>
         </label>
@@ -78,8 +78,11 @@ export function CategoryComparison({
               <div className="provider-card-main">
                 <div className="provider-identity">
                   <div className="provider-rank">
-                    <RankBadge rank={rank} />
-                    <span>of {providers.length}</span>
+                    <RankBadge rank={rank} of={providers.length} />
+                    <span aria-hidden="true">
+                      {rank <= 3 ? `Ranked ${rank} of ` : "of "}
+                      {providers.length}
+                    </span>
                   </div>
                   <ProviderLogo provider={p} large />
                   <span className="provider-type">{p.type}</span>

@@ -3,6 +3,7 @@ import { categories, providers } from "../lib/catalog";
 import { guides } from "../lib/guides";
 import { policies } from "../lib/policies";
 import { calculateLoan } from "../lib/loan";
+import { rankProviders, seededShuffle } from "../lib/ranking";
 
 test("the category inventory is exactly the ten requested labels", () => {
   expect(categories.map((c) => c.title)).toEqual([
@@ -27,6 +28,24 @@ test("the category inventory is exactly the ten requested labels", () => {
   expect(new Set(providers.map((p) => p.id)).size).toBe(providers.length);
   expect(providers.filter((p) => p.category === "gold")[0].id).toBe(
     "citadel-gold",
+  );
+});
+test("ranking pins Citadel Gold first and shuffles the rest with a stable seed", () => {
+  const ids = categories.map((c) => c.id);
+  const a = rankProviders(providers, ids, "seed-a").map((p) => p.id);
+  const b = rankProviders(providers, ids, "seed-b").map((p) => p.id);
+  expect(rankProviders(providers, ids, "seed-a").map((p) => p.id)).toEqual(a);
+  expect(a).not.toEqual(b);
+  expect(a).toHaveLength(providers.length);
+  expect(new Set(a).size).toBe(a.length);
+  for (const seed of ["seed-a", "seed-b"]) {
+    const gold = rankProviders(providers, ids, seed).filter(
+      (p) => p.category === "gold",
+    );
+    expect(gold[0].id).toBe("citadel-gold");
+  }
+  expect(seededShuffle([1, 2, 3, 4, 5], "x")).toEqual(
+    seededShuffle([1, 2, 3, 4, 5], "x"),
   );
 });
 test("repayment math handles normal, zero, tiny, and invalid rates", () => {
@@ -162,6 +181,30 @@ test("the paid gold listing is labeled Sponsored wherever it is ranked and links
   expect(await (await request.get("/advertising-disclosure")).text()).toContain(
     "Citadel Gold pays for the #1 spot",
   );
+  const home = await (await request.get("/")).text();
+  const gold = await (await request.get("/gold/best-gold-companies")).text();
+  const homeTop = [
+    ...home
+      .slice(home.indexOf('class="featured-companies"'))
+      .matchAll(/href="\/reviews\/([a-z0-9-]+)"/g),
+  ]
+    .map((m) => m[1])
+    .filter((id, i, all) => all.indexOf(id) === i)
+    .slice(0, 3);
+  const goldTop = [
+    ...gold.matchAll(
+      /class="quick-pick" data-rank="\d"[\s\S]*?href="#([a-z0-9-]+)"/g,
+    ),
+  ].map((m) => m[1]);
+  expect(homeTop[0]).toBe("citadel-gold");
+  expect(goldTop).toEqual(homeTop);
+  const citadelReview = await (
+    await request.get("/reviews/citadel-gold")
+  ).text();
+  expect(citadelReview).not.toMatch(/#1 of \d+ in Gold/);
+  expect(await (await request.get(`/reviews/${goldTop[1]}`)).text()).toContain(
+    "#2 of 7 in Gold",
+  );
   for (const path of [
     "/mortgages/best-mortgage-lenders",
     "/reviews/goldco",
@@ -176,6 +219,18 @@ test("the paid gold listing is labeled Sponsored wherever it is ranked and links
     expect(html, category.path).toContain("Last reviewed");
     expect(html, category.path).toContain('dateTime="2026-10-21"');
     expect(html, category.path).toContain('id="compare-table"');
+    expect(html, category.path).toContain("The top three on our list.");
+    for (const rank of [1, 2, 3]) {
+      expect(html, category.path).toContain(
+        `<article class="quick-pick" data-rank="${rank}">`,
+      );
+    }
+    expect(html, category.path).not.toContain(
+      'class="quick-pick" data-rank="4"',
+    );
+    expect(html, category.path).not.toContain(
+      'class="rank-badge" data-rank="4"',
+    );
     for (const p of providers.filter((x) => x.category === category.id)) {
       const rel =
         p.id === "citadel-gold"
