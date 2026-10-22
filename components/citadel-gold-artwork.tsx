@@ -1,15 +1,9 @@
 import Image from "next/image";
 import styles from "./citadel-gold.module.css";
 
-export function CitadelGoldArtwork({
-  placement = false,
-}: {
-  placement?: boolean;
-}) {
+export function CitadelGoldArtwork() {
   return (
-    <div
-      className={`${styles.artwork} ${placement ? styles.placementArtwork : ""}`}
-    >
+    <div className={styles.artwork}>
       <div className={styles.artworkCopy}>
         <span className={styles.overline}>
           A REFINED APPROACH TO PRECIOUS METALS
