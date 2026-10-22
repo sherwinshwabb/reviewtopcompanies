@@ -1,0 +1,704 @@
+.dock,
+.dialog {
+  --citadel-green: #243c30;
+  --citadel-gold: #d3b16a;
+  --citadel-ink: #24362b;
+  color: var(--citadel-ink);
+}
+
+.dock {
+  position: fixed;
+  z-index: 54;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, calc(100% - 48px));
+  display: grid;
+  grid-template-columns: 185px 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 22px 32px;
+  border: 1px solid #d3b16a66;
+  border-radius: 18px;
+  background: #fffefaf5;
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 16px 65px #132a3026,
+    0 2px 8px #132a3010;
+  animation: dockIn 450ms ease both;
+}
+
+.dockSpace {
+  height: 130px;
+}
+.logo {
+  width: 190px;
+  height: auto;
+  object-fit: contain;
+}
+.dockBrand {
+  padding-right: 23px;
+  border-right: 1px solid #dce1d9;
+}
+.dockBrand .logo {
+  width: 100%;
+}
+.dockMessage p {
+  font-size: 14px;
+  color: var(--citadel-ink);
+  margin: 7px 0 2px;
+  line-height: 1.5;
+}
+.preferred {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.25px;
+  color: #6b552c;
+}
+.preferred > span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 27px;
+  height: 24px;
+  border: 1px solid #d3b16a70;
+  border-radius: 6px;
+  background: #f1e9d7;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+.disclosure {
+  font-size: 10px;
+  color: #6c756b;
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+.dockActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 6px 10px;
+}
+.primaryButton,
+.callButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 50px;
+  padding: 12px 22px;
+  border: 1px solid var(--citadel-green);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 180ms,
+    box-shadow 180ms,
+    transform 180ms;
+}
+.primaryButton {
+  background: var(--citadel-green);
+  color: #fffdf7;
+  box-shadow: 0 4px 12px #243c301a;
+}
+.primaryButton:hover {
+  background: #34513f;
+  box-shadow: 0 6px 16px #243c3026;
+  transform: translateY(-1px);
+}
+.callButton {
+  background: transparent;
+  color: var(--citadel-green);
+}
+.callButton:hover {
+  background: #edf1e9;
+}
+.desktopPhone {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+.dockCaption {
+  grid-column: 2;
+  font-size: 9px;
+  text-align: center;
+  color: #72786c;
+}
+.dismissDock,
+.closeModal {
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9dfd4;
+  background: #fffefb;
+  color: #263c30;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dismissDock {
+  position: absolute;
+  right: -10px;
+  top: -12px;
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 2px 9px #132a3010;
+}
+.dismissDock:hover,
+.closeModal:hover {
+  background: #f0eadc;
+}
+.dock :focus-visible,
+.dialog :focus-visible {
+  outline: 3px solid #b28a3e;
+  outline-offset: 4px;
+}
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  width: min(960px, calc(100% - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  border: 1px solid #dfd6bf;
+  border-radius: 24px;
+  background: #fffefa;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 40px 120px #0005;
+}
+.dialog::backdrop {
+  background: #0a171eb0;
+  backdrop-filter: blur(7px);
+}
+.dialog[open] {
+  animation: modalIn 240ms ease both;
+}
+.modalLayout {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  position: relative;
+}
+.closeModal {
+  position: absolute;
+  z-index: 3;
+  right: 16px;
+  top: 16px;
+  width: 38px;
+  height: 38px;
+}
+.modalContent {
+  padding: 48px 38px 25px;
+}
+.modalBrand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 22px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e4e3d9;
+}
+.rankSeal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #d3b16a75;
+  background: #f5efdf;
+  border-radius: 12px;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 26px;
+  line-height: 1.15;
+}
+.rankSeal span {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 6px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+.modalContent h2 {
+  color: var(--citadel-ink);
+  font-size: clamp(30px, 3vw, 41px);
+  line-height: 1.16;
+  letter-spacing: -1.4px;
+  margin: 23px 0 14px;
+}
+.modalContent h2 em {
+  color: #8b713c;
+}
+.modalDescription {
+  color: #657063;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 360px;
+}
+.benefits {
+  display: grid;
+  gap: 9px;
+  margin: 22px 0 25px;
+  padding: 0;
+  list-style: none;
+}
+.benefits li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+.benefits svg {
+  color: #8b713c;
+  flex-shrink: 0;
+}
+.modalActions {
+  display: grid;
+  gap: 10px;
+}
+.modalActions .primaryButton,
+.modalActions .callButton {
+  min-height: 53px;
+  font-size: 14px;
+}
+.modalActions .callButton > span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.websiteCaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #697366;
+  font-size: 10px;
+  margin-top: 9px;
+}
+.finePrint {
+  color: #7a8077;
+  font-size: 9px;
+  line-height: 1.6;
+  margin-top: 20px;
+  text-align: center;
+}
+.keepComparing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 15px 0 0;
+  font-size: 10px;
+  color: #5d685b;
+  cursor: pointer;
+}
+.keepComparing:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.artwork {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 580px;
+  background: #102b20 url("/citadel/green-velvet.png") center / cover;
+  padding: 46px 32px 28px;
+}
+.artwork::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 65% 48%, #bfab6b21, transparent 65%),
+    linear-gradient(160deg, #133f302b, #041a1270);
+}
+.artwork::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  z-index: -1;
+  border: 1px solid #d6b97530;
+  border-radius: 2px;
+}
+.overline {
+  display: block;
+  color: #ddcfab;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1.8;
+  letter-spacing: 1.8px;
+}
+.artworkCopy p {
+  color: #fff8e9;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 35px;
+  line-height: 1.17;
+  letter-spacing: -0.8px;
+  margin-top: 22px;
+}
+.artworkCopy em {
+  color: #e2c57e;
+  font-weight: 400;
+}
+.coins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.coins img {
+  position: absolute;
+  object-fit: contain;
+  height: auto;
+  filter: drop-shadow(6px 22px 18px #0008);
+}
+.eagle {
+  width: 75%;
+  left: -4%;
+  bottom: 12%;
+  transform: rotate(-13deg);
+  z-index: 1;
+}
+.buffalo {
+  width: 62%;
+  right: -6%;
+  bottom: 25%;
+  transform: rotate(13deg);
+}
+.artworkFootnote {
+  color: #e5d4a6;
+  position: relative;
+  font-size: 7px;
+  letter-spacing: 1.4px;
+  line-height: 1.8;
+}
+.placementArtwork {
+  min-height: 240px;
+  height: 240px;
+  padding: 32px 35px 24px;
+  border-radius: 9px 9px 0 0;
+}
+.placementArtwork .artworkCopy {
+  max-width: 50%;
+}
+.placementArtwork .artworkCopy p {
+  font-size: 34px;
+  margin-top: 16px;
+}
+.placementArtwork .overline {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+}
+.placementArtwork .coins {
+  left: 47%;
+}
+.placementArtwork .eagle {
+  width: 68%;
+  left: -3%;
+  bottom: -18%;
+}
+.placementArtwork .buffalo {
+  width: 56%;
+  right: -1%;
+  bottom: 18%;
+}
+.placementArtwork .artworkFootnote {
+  font-size: 6px;
+}
+
+@keyframes dockIn {
+  from {
+    opacity: 0;
+    translate: 0 15px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .dock {
+    grid-template-columns: 135px 1fr auto;
+    gap: 18px;
+    padding: 20px;
+  }
+  .dockBrand {
+    padding-right: 18px;
+  }
+  .dockMessage p {
+    font-size: 12px;
+  }
+  .dockActions .callButton,
+  .dockActions .primaryButton {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dock {
+    bottom: 0;
+    width: 100%;
+    padding: 15px 20px max(12px, env(safe-area-inset-bottom));
+    border-radius: 18px 18px 0 0;
+    gap: 12px 14px;
+    grid-template-columns: 135px 1fr;
+    border-bottom: 0;
+  }
+  .dockBrand {
+    padding: 0;
+    border: 0;
+  }
+  .dockMessage {
+    text-align: right;
+  }
+  .dockMessage p {
+    display: none;
+  }
+  .preferred {
+    font-size: 7px;
+    letter-spacing: 0.6px;
+    gap: 5px;
+  }
+  .preferred > span {
+    font-size: 11px;
+    width: 24px;
+    height: 22px;
+  }
+  .dockMessage .disclosure {
+    display: block;
+    font-size: 8px;
+    margin-top: 3px;
+  }
+  .dismissDock {
+    top: -14px;
+    right: 12px;
+  }
+  .dockActions {
+    grid-column: 1 / -1;
+    gap: 6px 10px;
+  }
+  .dockActions .primaryButton,
+  .dockActions .callButton {
+    min-height: 47px;
+    font-size: 13px;
+  }
+  .desktopPhone {
+    display: none;
+  }
+  .dockCaption {
+    font-size: 8px;
+  }
+  .dockSpace {
+    height: 175px;
+  }
+  .dialog {
+    width: calc(100% - 28px);
+    max-height: calc(100dvh - 32px);
+    border-radius: 20px;
+  }
+  .modalLayout {
+    display: block;
+  }
+  .closeModal {
+    width: 34px;
+    height: 34px;
+    top: 12px;
+    right: 12px;
+  }
+  .artwork {
+    height: clamp(175px, 27dvh, 235px);
+    min-height: 0;
+    padding: 22px;
+  }
+  .artwork::after {
+    inset: 12px;
+  }
+  .artworkCopy p {
+    font-size: 25px;
+    margin-top: 12px;
+  }
+  .artworkCopy {
+    max-width: 47%;
+    position: relative;
+    z-index: 2;
+  }
+  .overline {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  .coins {
+    left: 39%;
+  }
+  .eagle {
+    width: 83%;
+    left: -9%;
+    bottom: -12%;
+  }
+  .buffalo {
+    width: 69%;
+    right: -20%;
+    bottom: 22%;
+  }
+  .artworkFootnote {
+    font-size: 5px;
+    letter-spacing: 0.9px;
+  }
+  .dialog .artworkCopy p,
+  .dialog .artworkFootnote {
+    display: none;
+  }
+  .dialog .coins {
+    left: 10%;
+  }
+  .dialog .eagle {
+    width: 66%;
+    left: 0;
+    bottom: -24%;
+  }
+  .dialog .buffalo {
+    width: 55%;
+    right: -6%;
+    bottom: 17%;
+  }
+  .modalContent {
+    padding: 22px 24px 20px;
+  }
+  .modalBrand {
+    padding-bottom: 16px;
+    margin-bottom: 6px;
+  }
+  .modalBrand .logo {
+    width: 165px;
+  }
+  .rankSeal {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+  .rankSeal span {
+    font-size: 5px;
+  }
+  .modalContent .disclosure {
+    font-size: 8px;
+  }
+  .modalContent h2 {
+    font-size: 32px;
+    margin: 18px 0 12px;
+  }
+  .modalDescription {
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .benefits {
+    margin: 17px 0 21px;
+    gap: 7px;
+  }
+  .benefits li {
+    font-size: 11px;
+  }
+  .modalActions .primaryButton,
+  .modalActions .callButton {
+    min-height: 49px;
+    font-size: 13px;
+  }
+  .modalActions .callButton > span {
+    font-size: 11px;
+  }
+  .finePrint {
+    font-size: 8px;
+    margin-top: 16px;
+  }
+  .keepComparing {
+    padding-top: 12px;
+    font-size: 9px;
+  }
+  .placementArtwork {
+    height: 205px;
+    padding: 25px 24px 20px;
+  }
+  .placementArtwork .artworkCopy {
+    max-width: 48%;
+  }
+  .placementArtwork .artworkCopy p {
+    font-size: 26px;
+  }
+  .placementArtwork .coins {
+    left: 43%;
+  }
+  .placementArtwork .eagle {
+    width: 85%;
+    left: -14%;
+    bottom: -6%;
+  }
+  .placementArtwork .buffalo {
+    width: 71%;
+    right: -22%;
+    bottom: 22%;
+  }
+  .placementArtwork .overline {
+    font-size: 6px;
+    letter-spacing: 0.7px;
+  }
+  .placementArtwork .artworkFootnote {
+    font-size: 5px;
+  }
+}
+
+@media (max-width: 370px) {
+  .dock {
+    grid-template-columns: 112px 1fr;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .preferred {
+    font-size: 6px;
+  }
+  .modalContent {
+    padding: 18px 20px;
+  }
+  .modalBrand .logo {
+    width: 145px;
+  }
+  .modalActions .callButton {
+    gap: 7px;
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock,
+  .dialog[open] {
+    animation: none;
+  }
+  .primaryButton,
+  .callButton {
+    transition: none;
+  }
+}
