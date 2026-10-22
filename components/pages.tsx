@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Category,
   Provider,
@@ -178,12 +179,35 @@ export function CategoryPage({ category: c }: { category: Category }) {
             <Link href={`/methodology/${c.id}`}>How we rank</Link>
           </p>
         </div>
-        <div className="quick-picks">
+        <div
+          className={`quick-picks${c.id === "gold" ? " quick-picks-gold" : ""}`}
+        >
           {list.slice(0, 3).map((p, i) => (
             <article className="quick-pick" data-rank={i + 1} key={p.id}>
               <div className="quick-pick-heading">
                 <RankBadge rank={i + 1} of={list.length} />
-                <span className="eyebrow">BEST FOR</span>
+                {c.id === "gold" && p.id === "citadel-gold" ? (
+                  <div className="quick-pick-citadel-brand">
+                    <Image
+                      src="/citadel/logo-dark.png"
+                      alt="Citadel Gold logo"
+                      width={960}
+                      height={388}
+                      sizes="175px"
+                    />
+                    <span
+                      className="quick-pick-citadel-stars"
+                      role="img"
+                      aria-label="Five gold stars"
+                    >
+                      {Array.from({ length: 5 }, (_, star) => (
+                        <Icon key={star} name="star" size={16} />
+                      ))}
+                    </span>
+                  </div>
+                ) : (
+                  <span className="eyebrow">BEST FOR</span>
+                )}
               </div>
               <h2>
                 <Link href={`#${p.id}`}>{p.name}</Link>
