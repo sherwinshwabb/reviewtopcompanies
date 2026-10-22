@@ -16,6 +16,10 @@ import {
   faqSchema,
   reviewArticleSchema,
   guideArticleSchema,
+  guideTitle,
+  lowerFirst,
+  methodologySeo,
+  providerSeo,
 } from "@/lib/seo";
 import {
   Breadcrumb,
@@ -41,13 +45,13 @@ export function CategoryDirectory() {
       <section className="page-intro container">
         <span className="eyebrow">PICK YOUR DECISION</span>
         <h1>
-          Which decision
+          Compare the best companies,
           <br />
-          <em>are you making?</em>
+          <em>category by category.</em>
         </h1>
         <p>
-          Ten categories across money and legal help. Every company inside each
-          one gets asked the same questions.
+          Ten ranked categories across money and legal help. Every company
+          inside each one gets asked the same questions.
         </p>
       </section>
       <section className="container section section-top-small">
@@ -67,23 +71,8 @@ export function CategoryPage({ category: c }: { category: Category }) {
   const related = guides.filter((g) => g.category === c.id);
   const legal = ["personal-injury", "lemon-law"].includes(c.id);
   const noun = c.id === "credit-cards" ? "card" : "company";
-  const faqs = [
-    {
-      question: `How do I use this ${c.short.toLowerCase()} comparison?`,
-      answer: `Filter to the service you need, read each ${noun}'s strengths and the catch, then add up to three to a side-by-side table. Confirm today's costs and eligibility with the ${noun} before you decide.`,
-    },
-    {
-      question: `Why don't you show live rates for every ${noun}?`,
-      answer:
-        "Rates, fees, minimums, and availability depend on you and change without notice. Where we don't have a current, comparable figure we send you to the company's own page instead of guessing.",
-    },
-    ...categorySeo[c.id].faqs,
-    {
-      question: "Do I have to give you my contact details?",
-      answer:
-        "No. Every review, guide, filter, and comparison works without an account, an email, or a phone number. Company links go straight to the company's own site.",
-    },
-  ];
+  const seo = categorySeo[c.id];
+  const faqs = seo.faqs;
   return (
     <main id="main-content">
       <StructuredData data={categoryPageSchema(c, list)} />
@@ -99,9 +88,9 @@ export function CategoryPage({ category: c }: { category: Category }) {
           <div className="category-title-icon">
             <Icon name={c.icon} size={31} />
           </div>
-          <span className="eyebrow">CATEGORY COMPARISON</span>
-          <h1>{c.title}</h1>
-          <p className="intro-description">{c.intro}</p>
+          <span className="eyebrow">{seo.eyebrow}</span>
+          <h1>{seo.h1}</h1>
+          <p className="intro-description">{seo.intro}</p>
           <div className="byline">
             <span className="author-monogram">{monogram}</span>
             <div>
@@ -290,7 +279,7 @@ export function CategoryPage({ category: c }: { category: Category }) {
             </Link>
           </section>
           <section className="reading-section" id="questions">
-            <h2>Common questions</h2>
+            <h2>{`Frequently asked questions about ${seo.plural}`}</h2>
             <FAQ items={faqs} />
           </section>
           <section className="sources-section" id="sources">
@@ -325,7 +314,7 @@ export function CategoryPage({ category: c }: { category: Category }) {
               <a href="#overview">What to know</a>
               <a href="#choosing">What to look for</a>
               <a href="#methodology">How we weigh it</a>
-              <a href="#questions">Common questions</a>
+              <a href="#questions">FAQ</a>
               <a href="#sources">Sources</a>
             </nav>
             <div className="sidebar-note">
@@ -375,6 +364,7 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
   const rank = peers.findIndex((x) => x.id === p.id) + 1;
   const alternatives = peers.filter((x) => x.id !== p.id).slice(0, 3);
   const related = guides.filter((g) => g.category === c.id).slice(0, 3);
+  const seo = providerSeo(p);
   return (
     <main id="main-content">
       <StructuredData data={reviewArticleSchema(p, c)} />
@@ -383,13 +373,10 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
       />
       <section className="review-hero container">
         <div>
-          <span className="eyebrow">
-            COMPANY REVIEW · {c.short.toUpperCase()}
-          </span>
-          <h1>{p.name}</h1>
+          <span className="eyebrow">{seo.eyebrow}</span>
+          <h1>{seo.h1}</h1>
           <p>
-            {p.fit}. What the company offers, what to check, and what to ask
-            before you sign.
+            {`Best for ${lowerFirst(p.fit)}. What the company offers, what it costs, and what to ask before you sign.`}
           </p>
           <div className="byline">
             <span className="author-monogram">{monogram}</span>
@@ -453,7 +440,7 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
             </dl>
           </section>
           <section>
-            <h2>Where it fits, and where it doesn&rsquo;t</h2>
+            <h2>{`${p.name} pros and cons`}</h2>
             <div className="pros-cons">
               <div>
                 <h3>
@@ -472,7 +459,7 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
             </div>
           </section>
           <section>
-            <h2>Costs, terms, and who qualifies</h2>
+            <h2>{`${p.name} costs, terms, and who qualifies`}</h2>
             <p>{c.advice[0].body}</p>
             <p>
               Before you commit to {p.name}, ask for today&rsquo;s terms in
@@ -489,7 +476,7 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
             )}
           </section>
           <section>
-            <h2>Who this is for</h2>
+            <h2>{`Who ${p.name} is for`}</h2>
             <p>
               {p.name} belongs on your list if you&rsquo;re looking at{" "}
               {p.type.toLowerCase()}. Start with the fit above, then put its
@@ -515,7 +502,7 @@ export function ReviewPage({ provider: p }: { provider: Provider }) {
             </ol>
           </section>
           <section>
-            <h2>How we reviewed this company</h2>
+            <h2>{`How we reviewed ${p.name}`}</h2>
             <p>
               We keep what a company says about itself separate from what we
               could verify. A company only gets a score once we&rsquo;ve
@@ -619,7 +606,7 @@ export function GuidePage({ guide: g }: { guide: Guide }) {
       />
       <div className="article-heading container">
         <span className="eyebrow">{c.short} · GUIDE</span>
-        <h1>{g.title}</h1>
+        <h1>{guideTitle(g)}</h1>
         <p>{g.description}</p>
         <div className="byline">
           <span className="author-monogram">{monogram}</span>
@@ -692,19 +679,21 @@ export function MethodologyPage({ category }: { category?: Category }) {
         ]}
       />
       <section className="page-intro container">
-        <span className="eyebrow">HOW WE REVIEW</span>
+        <span className="eyebrow">HOW WE RANK</span>
         <h1>
           {category ? (
             <>
-              How we compare
+              How we rank
               <br />
-              <em>{category.short.toLowerCase()}.</em>
+              <em>
+                {methodologySeo(category).h1.replace("How we rank ", "")}.
+              </em>
             </>
           ) : (
             <>
-              Same questions,
+              How we rank and review companies.
               <br />
-              <em>every company.</em>
+              <em>Same questions, every company.</em>
             </>
           )}
         </h1>

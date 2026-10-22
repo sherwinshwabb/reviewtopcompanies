@@ -4,7 +4,7 @@ import { Header, Footer } from "@/components/navigation";
 import { ComparisonProvider } from "@/components/comparison-context";
 import "./globals.css";
 import { StructuredData } from "@/components/structured-data";
-import { siteName, siteOrigin, siteDescription, siteTagline } from "@/lib/site";
+import { siteName, siteOrigin, siteTagline } from "@/lib/site";
 import { organizationSchema, websiteSchema, staticSeo } from "@/lib/seo";
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     default: staticSeo["/"].title,
     template: `%s | ${siteName}`,
   },
-  description: siteDescription,
+  description: staticSeo["/"].description,
   keywords: [
     "company reviews",
     "compare companies",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     title: staticSeo["/"].title,
-    description: siteDescription,
+    description: staticSeo["/"].description,
     images: [
       {
         url: "/opengraph-image",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: staticSeo["/"].title,
-    description: siteDescription,
+    description: staticSeo["/"].description,
     images: ["/opengraph-image"],
   },
   icons: {

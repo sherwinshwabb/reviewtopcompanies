@@ -153,7 +153,7 @@ export function Brand({
       </svg>
       {!compact && (
         <span>
-          top <b>provider picks</b>
+          TOP <b>PROVIDER PICKS</b>
         </span>
       )}
     </span>

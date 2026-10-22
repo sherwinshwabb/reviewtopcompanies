@@ -18,14 +18,21 @@ export default function Image() {
       }}
     >
       <div
-        style={{ display: "flex", fontSize: 27, alignItems: "center", gap: 18 }}
+        style={{
+          display: "flex",
+          fontSize: 22,
+          letterSpacing: 3,
+          fontWeight: 600,
+          alignItems: "center",
+          gap: 18,
+        }}
       >
         <div style={{ display: "flex", gap: 5, alignItems: "flex-end" }}>
           <div style={{ width: 12, height: 30, background: "#789198" }} />
           <div style={{ width: 12, height: 45, background: "#17324d" }} />
           <div style={{ width: 12, height: 36, background: "#176b79" }} />
         </div>
-        {siteName}
+        {siteName.toUpperCase()}
       </div>
       <div
         style={{
