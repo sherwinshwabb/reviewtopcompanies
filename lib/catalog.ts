@@ -1,3 +1,4 @@
+import { rankProviders } from "./ranking";
 export type Category = {
   id: string;
   title: string;
@@ -436,7 +437,7 @@ const p = (
   color,
   minimum,
 });
-export const providers: Provider[] = [
+const catalog: Provider[] = [
   p(
     "citadel-gold",
     "Citadel Gold",
@@ -1026,6 +1027,11 @@ export const providers: Provider[] = [
 ];
 export const categoryById = (id: string) =>
   categories.find((c) => c.id === id)!;
+/** Ranked order: the pinned company first in its category, the rest shuffled per build. */
+export const providers: Provider[] = rankProviders(
+  catalog,
+  categories.map((c) => c.id),
+);
 export const providersFor = (id: string) =>
   providers.filter((p) => p.category === id);
 export const providerById = (id: string) => providers.find((p) => p.id === id);

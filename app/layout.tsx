@@ -80,7 +80,13 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: ["/opengraph-image"],
   },
-  icons: { icon: "/brand/mark.svg", apple: "/brand/mark.svg" },
+  icons: {
+    icon: [
+      { url: "/brand/mark.svg", type: "image/svg+xml" },
+      { url: "/brand/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/brand/apple-touch-icon.png",
+  },
 };
 export default function RootLayout({
   children,

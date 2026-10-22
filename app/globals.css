@@ -5361,3 +5361,98 @@ body {
     font-size: 40px;
   }
 }
+/* Ranking pass: the top three carry medals, everything below is a quiet number. */
+.quick-picks-section {
+  padding-top: 30px;
+}
+.quick-picks-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px 40px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.quick-picks-heading h2 {
+  font-size: 28px;
+  letter-spacing: -0.6px;
+  line-height: 1.1;
+  margin-top: 8px;
+}
+.quick-picks-heading .eyebrow {
+  color: #8c6a24;
+}
+.quick-picks-heading p {
+  margin: 0;
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.quick-picks-heading p a {
+  color: var(--teal);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.quick-picks-section .quick-picks {
+  padding-top: 18px;
+}
+.rank-badge-rest,
+.provider-rank .rank-badge-rest,
+.table-company .rank-badge-rest {
+  background: transparent;
+  border-color: #dfe5e8;
+  color: #8a979f;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+.provider-rank .rank-badge-rest {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+.table-company .rank-badge-rest {
+  border-style: dashed;
+  font-size: 14px;
+}
+.provider-rank {
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+.provider-card[data-rank="1"] .provider-rank span,
+.provider-card[data-rank="2"] .provider-rank span,
+.provider-card[data-rank="3"] .provider-rank span {
+  font-weight: 600;
+  color: var(--navy);
+}
+.provider-card[data-rank="2"] {
+  box-shadow: inset 4px 0 #9fb0bf;
+}
+.provider-card[data-rank="3"] {
+  box-shadow: inset 4px 0 #c39b7e;
+}
+.quick-pick[data-rank="2"] {
+  box-shadow: inset 0 3px #9fb0bf;
+}
+.quick-pick[data-rank="3"] {
+  box-shadow: inset 0 3px #c39b7e;
+}
+@media (max-width: 760px) {
+  .quick-picks-heading h2 {
+    font-size: 24px;
+  }
+  .provider-identity .provider-rank {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .provider-rank .rank-badge {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+}
