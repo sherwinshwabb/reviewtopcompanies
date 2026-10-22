@@ -1,7 +1,7 @@
 /**
  * Paid placement. The listing carries one "Sponsored" line on its category
- * card, linking to /advertising-disclosure, and its outbound links carry
- * rel="sponsored". Nothing else is marked.
+ * card, linking to /advertising-disclosure. Contact promotions also disclose
+ * the paid placement, and outbound links carry rel="sponsored".
  */
 export const goldPaidPlacement = {
   providerId: "citadel-gold",

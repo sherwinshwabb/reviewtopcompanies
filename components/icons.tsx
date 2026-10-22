@@ -13,6 +13,9 @@ const paths: Record<string, React.ReactNode> = {
   ),
   check: <path d="m5 12 4 4L19 6" />,
   close: <path d="m6 6 12 12M6 18 18 6" />,
+  phone: (
+    <path d="m8 3 3 5-3 3c1.5 3 2.5 4 5.5 5.5l3-3 4.5 3c0 3-2 5-5 4C9 18.5 5.5 15 3.5 8 2.5 5 5 3 8 3Z" />
+  ),
   chevron: <path d="m6 9 6 6 6-6" />,
   gold: (
     <>

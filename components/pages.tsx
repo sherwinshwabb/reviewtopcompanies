@@ -36,6 +36,7 @@ import { ReviewedOn } from "./editorial";
 import { RankBadge } from "./rank-badge";
 import { Icon } from "./icons";
 import { CategoryComparison } from "./category-comparison";
+import { CitadelGoldContact } from "./citadel-gold-contact";
 import { CompareButton } from "./comparison-context";
 import { LoanCalculator } from "./calculator";
 export function CategoryDirectory() {
@@ -355,6 +356,7 @@ export function CategoryPage({ category: c }: { category: Category }) {
           </div>
         </section>
       )}
+      {c.id === "gold" && <CitadelGoldContact provider={list[0]} />}
     </main>
   );
 }
