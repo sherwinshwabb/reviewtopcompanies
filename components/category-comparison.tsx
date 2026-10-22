@@ -8,7 +8,6 @@ import { RankBadge } from "./rank-badge";
 import { ProviderLogo } from "./ui";
 import { Icon } from "./icons";
 import { CompareButton, useComparison } from "./comparison-context";
-import { CitadelGoldArtwork } from "./citadel-gold-artwork";
 export function CategoryComparison({
   category,
   providers,
@@ -76,9 +75,6 @@ export function CategoryComparison({
               key={p.id}
               id={p.id}
             >
-              {category.id === "gold" && p.id === "citadel-gold" && (
-                <CitadelGoldArtwork placement />
-              )}
               <div className="provider-card-main">
                 <div className="provider-identity">
                   <div className="provider-rank">

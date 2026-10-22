@@ -130,6 +130,38 @@ export function CategoryPage({ category: c }: { category: Category }) {
               </dd>
             </div>
           </dl>
+          {c.id === "gold" && (
+            <div className="gold-hero-benefits">
+              <div className="gold-hero-actions">
+                <a
+                  href="#companies"
+                  className="gold-hero-button gold-hero-button-primary"
+                >
+                  Compare gold companies <Icon name="arrow" size={18} />
+                </a>
+                <a
+                  href="#choosing"
+                  className="gold-hero-button gold-hero-button-secondary"
+                >
+                  Know what to look for <Icon name="book" size={17} />
+                </a>
+              </div>
+              <ul aria-label="Why compare with us">
+                {[
+                  "Leading companies, compared clearly",
+                  "Pricing & fees, brought into focus",
+                  "Simple steps to get started",
+                ].map((benefit) => (
+                  <li key={benefit}>
+                    <span className="gold-hero-check">
+                      <Icon name="check" size={19} />
+                    </span>
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
       <section className="container quick-picks-section" aria-label="Top three">

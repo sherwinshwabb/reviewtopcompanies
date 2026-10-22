@@ -387,39 +387,6 @@
   letter-spacing: 1.4px;
   line-height: 1.8;
 }
-.placementArtwork {
-  min-height: 240px;
-  height: 240px;
-  padding: 32px 35px 24px;
-  border-radius: 9px 9px 0 0;
-}
-.placementArtwork .artworkCopy {
-  max-width: 50%;
-}
-.placementArtwork .artworkCopy p {
-  font-size: 34px;
-  margin-top: 16px;
-}
-.placementArtwork .overline {
-  font-size: 7px;
-  letter-spacing: 1.5px;
-}
-.placementArtwork .coins {
-  left: 47%;
-}
-.placementArtwork .eagle {
-  width: 68%;
-  left: -3%;
-  bottom: -18%;
-}
-.placementArtwork .buffalo {
-  width: 56%;
-  right: -1%;
-  bottom: 18%;
-}
-.placementArtwork .artworkFootnote {
-  font-size: 6px;
-}
 
 @keyframes dockIn {
   from {
@@ -638,36 +605,6 @@
   .keepComparing {
     padding-top: 12px;
     font-size: 9px;
-  }
-  .placementArtwork {
-    height: 205px;
-    padding: 25px 24px 20px;
-  }
-  .placementArtwork .artworkCopy {
-    max-width: 48%;
-  }
-  .placementArtwork .artworkCopy p {
-    font-size: 26px;
-  }
-  .placementArtwork .coins {
-    left: 43%;
-  }
-  .placementArtwork .eagle {
-    width: 85%;
-    left: -14%;
-    bottom: -6%;
-  }
-  .placementArtwork .buffalo {
-    width: 71%;
-    right: -22%;
-    bottom: 22%;
-  }
-  .placementArtwork .overline {
-    font-size: 6px;
-    letter-spacing: 0.7px;
-  }
-  .placementArtwork .artworkFootnote {
-    font-size: 5px;
   }
 }
 
