@@ -4481,6 +4481,28 @@ summary:focus-visible,
   font-size: 9px;
   margin: 0;
 }
+.quick-pick-citadel-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  margin-left: auto;
+}
+.quick-pick-citadel-brand img {
+  display: block;
+  width: 175px;
+  max-width: 100%;
+  height: auto;
+}
+.quick-pick-citadel-stars {
+  display: flex;
+  gap: 3px;
+  color: #c39942;
+}
+.quick-pick-citadel-stars svg {
+  fill: currentColor;
+  stroke-width: 1;
+}
 .quick-pick h2 {
   font-size: 24px;
   line-height: 1.15;
@@ -4495,6 +4517,18 @@ summary:focus-visible,
 .quick-pick .inline-link {
   font-size: 11px;
   margin-top: 14px;
+}
+@media (min-width: 1001px) {
+  .quick-picks-gold > .quick-pick {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    row-gap: 0;
+  }
+  .quick-picks-gold .inline-link {
+    justify-self: start;
+    align-self: start;
+  }
 }
 .comparison-jump {
   display: flex;
