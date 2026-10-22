@@ -142,7 +142,7 @@ export function Home() {
           href="/categories"
           linkText="See every category"
         />
-        <CategoryGrid items={primaryCategories} />
+        <CategoryGrid items={primaryCategories} uniform />
       </section>
       <section className="featured-section">
         <div className="container">
