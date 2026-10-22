@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import companyBrands from "@/lib/company-brands.json";
 import { StructuredData } from "./structured-data";
 import { Category, Provider, categories, categoryById } from "@/lib/catalog";
@@ -65,13 +66,22 @@ export function CategoryCard({
   );
 }
 const featuredCategoryIds = ["gold", "mortgages", "credit-cards"];
-export function CategoryGrid() {
-  const featured = featuredCategoryIds.map((id) =>
-    categories.find((c) => c.id === id)!,
-  );
-  const rest = categories.filter((c) => !featuredCategoryIds.includes(c.id));
+const defaultCategoryOrder = [
+  ...featuredCategoryIds.map(categoryById),
+  ...categories.filter((c) => !featuredCategoryIds.includes(c.id)),
+];
+export function CategoryGrid({
+  items = defaultCategoryOrder,
+}: {
+  items?: Category[];
+}) {
+  const featured = items.slice(0, 3);
+  const rest = items.slice(3);
   return (
-    <div className="category-tiers">
+    <div
+      className="category-tiers"
+      style={{ "--compact-category-count": rest.length } as CSSProperties}
+    >
       <div className="category-grid category-grid-featured">
         {featured.map((c) => (
           <CategoryCard key={c.id} category={c} featured />

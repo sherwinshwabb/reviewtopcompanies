@@ -11,6 +11,7 @@ import { providers, categoryById } from "@/lib/catalog";
 import { guides } from "@/lib/guides";
 import { reviewedOnLabel } from "@/lib/site";
 import { RankBadge } from "./rank-badge";
+import { primaryCategories } from "@/lib/primary-categories";
 const goldProviders = providers.filter((p) => p.category === "gold");
 const chips = ["gold", "mortgages", "credit-cards", "banking"].map(
   categoryById,
@@ -136,12 +137,12 @@ export function Home() {
       <section className="section container" id="categories">
         <SectionHeading
           eyebrow="START WITH YOUR DECISION"
-          title="Pick the decision you're facing."
-          description="Gold, mortgages, and credit cards are where most people start. Seven more categories sit underneath."
+          title="Rate top companies"
+          description="Compare investment companies, gold investment companies, banks, credit cards, credit repair, debt relief, and legal services."
           href="/categories"
           linkText="See every category"
         />
-        <CategoryGrid />
+        <CategoryGrid items={primaryCategories} />
       </section>
       <section className="featured-section">
         <div className="container">

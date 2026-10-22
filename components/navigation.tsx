@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { categories } from "@/lib/catalog";
+import { primaryCategories } from "@/lib/primary-categories";
 import { siteName } from "@/lib/site";
 import { Brand, Icon } from "./icons";
 export function Header() {
@@ -87,7 +87,7 @@ export function Header() {
                 </Link>
               </div>
               <div className="menu-categories">
-                {categories.map((c) => (
+                {primaryCategories.map((c) => (
                   <Link key={c.id} href={c.path} onClick={() => setMenu(false)}>
                     <Icon name={c.icon} size={19} />
                     {c.title}
