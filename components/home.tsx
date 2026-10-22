@@ -25,9 +25,9 @@ export function Home() {
               <span /> COMPANY REVIEWS & COMPARISONS
             </div>
             <h1>
-              Find the right company
+              The best companies of 2026,
               <br />
-              before you sign <em>anything.</em>
+              ranked before you sign <em>anything.</em>
             </h1>
             <p>
               Straight company reviews and side-by-side comparisons for gold

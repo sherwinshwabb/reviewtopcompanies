@@ -155,7 +155,7 @@ test("indexing controls, branding assets, canonical metadata, and error handling
   expect(gold).toContain('"@type":"ItemList"');
   expect(gold).toContain("<title>Best Gold IRA Companies");
   for (const svg of ["/brand/logo.svg", "/brand/logo-horizontal.svg"])
-    expect(await (await request.get(svg)).text()).toContain("provider picks");
+    expect(await (await request.get(svg)).text()).toContain("PROVIDER PICKS");
   const missing = await request.get("/this-page-does-not-exist");
   expect(missing.status()).toBe(404);
   expect(await missing.text()).toContain("WRONG TURN");
@@ -166,6 +166,148 @@ test("indexing controls, branding assets, canonical metadata, and error handling
   expect(redirect.headers().location).toBe("/gold/best-gold-companies");
 });
 
+test("every page has unique, complete metadata, a social image, and valid structured data", async ({
+  request,
+}) => {
+  const { contentPaths } = await import("../lib/seo");
+  const paths = ["/", ...contentPaths];
+  const titles = new Map<string, string>();
+  const descriptions = new Map<string, string>();
+  const decode = (s: string) =>
+    s
+      .replace(/&amp;/g, "&")
+      .replace(/&#x27;/g, "'")
+      .replace(/&quot;/g, '"');
+  for (let start = 0; start < paths.length; start += 8) {
+    await Promise.all(
+      paths.slice(start, start + 8).map(async (path) => {
+        const html = await (await request.get(path)).text();
+        const title = decode(html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "");
+        const pageTitle = title.replace(/ \| Top Provider Picks$/, "");
+        expect(pageTitle.length, `${path} title "${title}"`).toBeGreaterThan(
+          10,
+        );
+        expect(
+          pageTitle.length,
+          `${path} title "${title}"`,
+        ).toBeLessThanOrEqual(70);
+        expect(titles.get(title), `duplicate title on ${path}`).toBeUndefined();
+        titles.set(title, path);
+        const description = decode(
+          html.match(/<meta name="description" content="([^"]+)"/)?.[1] ?? "",
+        );
+        expect(description.length, `${path} description`).toBeGreaterThan(40);
+        expect(description.length, `${path} description`).toBeLessThanOrEqual(
+          175,
+        );
+        expect(
+          descriptions.get(description),
+          `duplicate description on ${path}`,
+        ).toBeUndefined();
+        descriptions.set(description, path);
+        expect(html, path).toContain(
+          `rel="canonical" href="https://topproviderpicks.com${path === "/" ? "" : path}"`,
+        );
+        const image = path === "/" ? "/opengraph-image" : `/og${path}`;
+        expect(html, path).toContain(
+          `property="og:image" content="https://topproviderpicks.com${image}`,
+        );
+        for (const tag of [
+          'property="og:title"',
+          'property="og:description"',
+          'property="og:url"',
+          'name="twitter:card" content="summary_large_image"',
+          'name="twitter:image"',
+        ])
+          expect(html, `${path} ${tag}`).toContain(tag);
+        const scripts = [
+          ...html.matchAll(
+            /<script type="application\/ld\+json">([^<]+)<\/script>/g,
+          ),
+        ].map((m) => JSON.parse(m[1]) as { "@type": string });
+        expect(scripts.length, `${path} JSON-LD`).toBeGreaterThanOrEqual(2);
+        const types = scripts.map((s) => s["@type"]);
+        for (const t of types) expect(t, path).toBeTruthy();
+        if (categories.some((c) => c.path === path)) {
+          expect(types, path).toContain("CollectionPage");
+          expect(types, path).toContain("FAQPage");
+          expect(types, path).toContain("BreadcrumbList");
+        }
+        if (path.startsWith("/reviews/") || path.startsWith("/guides/"))
+          expect(types, path).toContain("Article");
+      }),
+    );
+  }
+  const image = await request.get("/og/gold/best-gold-companies");
+  expect(image.status()).toBe(200);
+  expect(image.headers()["content-type"]).toContain("image/png");
+  expect((await request.get("/og/reviews/citadel-gold")).status()).toBe(200);
+  expect((await request.get("/og/not-a-page")).status()).toBe(404);
+  expect((await request.get("/og/compare")).status()).toBe(404);
+});
+test("category pages carry year-stamped titles and headings, six unique FAQs, and the review pages name the company in every heading", async ({
+  request,
+}) => {
+  const { categorySeo, providerSeo } = await import("../lib/seo");
+  const questions = new Set<string>();
+  for (const category of categories) {
+    const seo = categorySeo[category.id];
+    expect(seo.metaTitle, category.id).toContain("2026");
+    expect(seo.metaTitle.length, category.id).toBeLessThanOrEqual(60);
+    expect(seo.h1, category.id).toContain("2026");
+    expect(seo.faqs, category.id).toHaveLength(6);
+    for (const faq of seo.faqs) {
+      expect(questions.has(faq.question), faq.question).toBeFalsy();
+      questions.add(faq.question);
+    }
+    const html = await (await request.get(category.path)).text();
+    const escape = (t: string) =>
+      t.replace(/&/g, "&amp;").replace(/'/g, "&#x27;").replace(/"/g, "&quot;");
+    expect(html, category.path).toContain(`<h1>${escape(seo.h1)}</h1>`);
+    expect(html, category.path).toContain(
+      `Frequently asked questions about ${seo.plural}`,
+    );
+    expect(html, category.path).not.toContain(
+      "Do I have to give you my contact details?",
+    );
+  }
+  const gold = await (await request.get("/gold/best-gold-companies")).text();
+  expect(gold).toContain(
+    "<title>Best Gold IRA Companies &amp; Bullion Dealers, Ranked for 2026 | Top Provider Picks</title>",
+  );
+  for (const p of providers) {
+    const seo = providerSeo(p);
+    expect(seo.metaTitle, p.id).toMatch(/ Review 2026: /);
+    expect(seo.metaTitle.length, p.id).toBeLessThanOrEqual(70);
+  }
+  const review = await (await request.get("/reviews/goldco")).text();
+  expect(review).toContain(
+    "<title>Goldco Review 2026: Gold IRA Costs &amp; Buyback | Top Provider Picks</title>",
+  );
+  for (const heading of [
+    "<h1>Goldco review</h1>",
+    "Goldco pros and cons",
+    "Goldco costs, terms, and who qualifies",
+    "Who Goldco is for",
+    "How we reviewed Goldco",
+  ])
+    expect(review).toContain(heading);
+  const guide = await (await request.get("/guides/gold-ira-fees")).text();
+  expect(guide).toContain(
+    "<title>What a Gold IRA Really Costs: Every Fee, Line by Line | Top Provider Picks</title>",
+  );
+  expect(guide).toContain(
+    "<h1>What a Gold IRA Really Costs: Every Fee, Line by Line</h1>",
+  );
+  const method = await (await request.get("/methodology/gold")).text();
+  expect(method).toContain(
+    "<title>How We Rank Gold Companies (2026 Criteria &amp; Weights) | Top Provider Picks</title>",
+  );
+  const disclosure = await (
+    await request.get("/advertising-disclosure")
+  ).text();
+  expect(disclosure).toContain("<h1>Advertising disclosure</h1>");
+});
 test("the paid gold listing carries one Sponsored line on its category card and links carry the right rel", async ({
   request,
 }) => {

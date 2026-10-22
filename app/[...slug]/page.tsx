@@ -4,7 +4,7 @@ import Link from "next/link";
 import { categories, providerById, categoryById } from "@/lib/catalog";
 import { guideBySlug } from "@/lib/guides";
 import { policies } from "@/lib/policies";
-import { contentPaths, resolvePageMeta } from "@/lib/seo";
+import { contentPaths, resolvePageMeta, staticSeo } from "@/lib/seo";
 import {
   CategoryDirectory,
   CategoryPage,
@@ -28,6 +28,7 @@ export async function generateMetadata({
   const meta = resolvePageMeta(path);
   if (!meta) return { title: "Page not found", robots: { index: false } };
   const isArticle = meta.kind === "review" || meta.kind === "guide";
+  const image = meta.kind === "utility" ? "/opengraph-image" : `/og${path}`;
   return {
     title: meta.title,
     description: meta.description,
@@ -37,11 +38,13 @@ export async function generateMetadata({
       description: meta.description,
       url: path,
       type: isArticle ? "article" : "website",
+      images: [{ url: image, width: 1200, height: 630, alt: meta.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
+      images: [image],
     },
   };
 }
@@ -86,15 +89,15 @@ export default async function ContentPage({
           <h1>
             {isCompanies ? (
               <>
-                All the companies,
+                Company reviews,
                 <br />
-                <em>one list.</em>
+                <em>all in one list.</em>
               </>
             ) : (
               <>
-                Guides to the
+                Guides to the fees
                 <br />
-                <em>fine print.</em>
+                <em>and fine print.</em>
               </>
             )}
           </h1>
@@ -112,12 +115,18 @@ export default async function ContentPage({
   }
   if (slug.length === 1 && policies[slug[0]]) {
     const p = policies[slug[0]];
+    const h1 = staticSeo[path]?.h1 ?? p.title;
+    const kicker =
+      p.title.replace(/\.$/, "").toLowerCase() === h1.toLowerCase()
+        ? null
+        : p.title;
     return (
       <main id="main-content">
         <Breadcrumb items={[{ label: p.eyebrow.toLowerCase() }]} />
         <section className="page-intro container">
           <span className="eyebrow">{p.eyebrow}</span>
-          <h1>{p.title}</h1>
+          <h1>{h1}</h1>
+          {kicker && <p className="page-kicker">{kicker}</p>}
           <p>{p.intro}</p>
         </section>
         <article className="reading-column standalone-article policy-article">
