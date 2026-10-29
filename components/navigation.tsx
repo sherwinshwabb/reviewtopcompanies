@@ -146,7 +146,6 @@ export function Footer() {
             <h4>Reach us</h4>
             <Link href="/contact">Contact</Link>
             <Link href="/advertise">Work with us</Link>
-            <Link href="/ownership">Ownership</Link>
             <Link href="/accessibility">Accessibility</Link>
           </div>
         </div>

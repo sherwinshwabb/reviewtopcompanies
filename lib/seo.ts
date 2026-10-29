@@ -667,11 +667,6 @@ export const staticSeo: Record<string, StaticSeo> = {
       "Our rules for publishing: every claim needs a source, comparisons must be like for like, update dates must be real, and corrections are open to everyone.",
     h1: "Editorial policy",
   },
-  "/ownership": {
-    title: `Who Owns and Runs ${siteName}`,
-    description: `Who owns and operates ${siteName}, and where the publisher's responsibility ends.`,
-    h1: "Who owns and runs this site",
-  },
   "/privacy": {
     title: "Privacy Policy: What We Store & Why",
     description:

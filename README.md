@@ -24,7 +24,7 @@ npm test
 - Fourteen educational guides, including all five specified gold launch topics.
 - Up to three companies in a persistent, same-category comparison. Browser storage synchronizes across tabs, tolerates malformed data, and has an in-memory fallback when storage is unavailable.
 - Fixed-rate repayment calculator with payment, total interest, and total repayment; zero-interest, very small rates, invalid values, and term bounds are handled explicitly.
-- About, editorial policy, ownership, methodology, contact, corrections, accessibility, privacy, terms, privacy choices, and partnership pages.
+- About, editorial policy, methodology, contact, corrections, accessibility, privacy, terms, privacy choices, and partnership pages.
 - Working copy/download message-draft tools. These do not claim to send email or collect leads.
 - Unique page titles and meta descriptions for every route (`lib/seo.ts`), canonical URLs, Open Graph and Twitter card tags, an original social preview image, Organization, WebSite (with SearchAction), CollectionPage/ItemList, Article, FAQPage, and BreadcrumbList structured data, a populated sitemap, a robots file that blocks only `/search` and `/compare`, a custom 404 page, and readable mobile comparison tables.
 - Site identity (name, origin, dates) lives in `lib/site.ts`. Change `siteOrigin` there if the production domain differs.

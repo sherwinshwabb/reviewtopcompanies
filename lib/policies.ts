@@ -51,21 +51,6 @@ export const policies: Record<
       },
     ],
   },
-  ownership: {
-    title: "Who's behind the site.",
-    eyebrow: "OWNERSHIP",
-    intro: `${siteName} is being built as a commercial consumer comparison publication owned by its publisher.`,
-    sections: [
-      {
-        title: "The operating company",
-        body: "The legal entity, business address, and contact details for the publisher still need to be filled in before this site goes live. They were not available when this preview was built.",
-      },
-      {
-        title: "Where our responsibility ends",
-        body: "We organize information and comparisons. The companies we profile are responsible for their own products, pricing, contracts, and customers.",
-      },
-    ],
-  },
   privacy: {
     title: "What we store, in plain English.",
     eyebrow: "PRIVACY",
