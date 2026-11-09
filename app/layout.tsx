@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
+import Script from "next/script";
 import { Header, Footer } from "@/components/navigation";
 import { ComparisonProvider } from "@/components/comparison-context";
 import "./globals.css";
@@ -18,6 +19,7 @@ const serif = Source_Serif_4({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
+const gtmId = "GTM-K3X7CB5X";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -110,6 +112,15 @@ export default function RootLayout({
           {children}
           <Footer />
         </ComparisonProvider>
+        <Script id="gtm-init">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`}
+        </Script>
+        <Script
+          id="gtm-loader"
+          src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
+        />
       </body>
     </html>
   );
