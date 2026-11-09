@@ -19,7 +19,7 @@ const serif = Source_Serif_4({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
-const gtmId = "GTM-K3X7CB5X";
+const gtmIds = ["GTM-K3X7CB5X", "GTM-PVVT547G"];
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -117,10 +117,13 @@ export default function RootLayout({
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());`}
         </Script>
-        <Script
-          id="gtm-loader"
-          src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}
-        />
+        {gtmIds.map((id) => (
+          <Script
+            key={id}
+            id={`gtm-loader-${id}`}
+            src={`https://www.googletagmanager.com/gtm.js?id=${id}`}
+          />
+        ))}
       </body>
     </html>
   );
