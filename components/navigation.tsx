@@ -5,9 +5,13 @@ import { usePathname } from "next/navigation";
 import { primaryCategories } from "@/lib/primary-categories";
 import { siteName } from "@/lib/site";
 import { Brand, Icon } from "./icons";
+import "./gold-match-chrome.css";
+const LP_ROUTES = new Set(["/gold/match"]);
+
 export function Header() {
   const [menu, setMenu] = useState(false);
   const pathname = usePathname();
+  const isLanding = LP_ROUTES.has(pathname);
   const navRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const close = (e: MouseEvent) => {
@@ -24,6 +28,25 @@ export function Header() {
       document.removeEventListener("keydown", key);
     };
   }, []);
+  if (isLanding) {
+    return (
+      <header className="header header-lp">
+        <div className="container header-inner header-inner-lp">
+          <Link href="/" aria-label={`${siteName} home`}>
+            <Brand />
+          </Link>
+          <div className="header-lp-meta">
+            <span className="header-lp-pill">
+              <Icon name="shield" size={14} /> Gold IRA Match Tool
+            </span>
+            <Link href="/advertising-disclosure" className="header-lp-disclosure">
+              Advertising disclosure
+            </Link>
+          </div>
+        </div>
+      </header>
+    );
+  }
   return (
     <>
       <div className="top-strip">
@@ -113,6 +136,34 @@ export function Header() {
   );
 }
 export function Footer() {
+  const pathname = usePathname();
+  if (LP_ROUTES.has(pathname)) {
+    return (
+      <footer className="footer footer-lp">
+        <div className="container">
+          <div className="footer-lp-note">
+            <Brand light />
+            <p>
+              Advertising disclosure: {siteName} may be compensated by gold
+              companies featured in your match results, which can influence
+              order and presentation. Always review written dealer, custodian,
+              and buyback terms before funding an account.
+            </p>
+          </div>
+          <div className="footer-bottom">
+            <span>© 2026 {siteName}</span>
+            <div>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/advertising-disclosure">Advertising disclosure</Link>
+              <Link href="/privacy-choices">Privacy choices</Link>
+            </div>
+            <span className="footer-signoff">Read the fine print.</span>
+          </div>
+        </div>
+      </footer>
+    );
+  }
   return (
     <footer className="footer">
       <div className="container">
