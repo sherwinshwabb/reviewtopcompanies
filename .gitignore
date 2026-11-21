@@ -43,3 +43,6 @@ next-env.d.ts
 # Local verification output
 /test-results/
 /playwright-report/
+
+# Rendered video overlays (large ProRes files)
+/docs/video-tag/out/

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Buyback Review Funnel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #17324d;
+    --navy-deep: #0d1f33;
+    --navy-ink: #091626;
+    --teal: #176b79;
+    --teal-dark: #12535e;
+    --teal-soft: #85b9ba;
+    --teal-pale: #e8f2f0;
+    --ink: #182230;
+    --muted: #65717a;
+    --line: #dde3e3;
+    --pale: #f4f7fa;
+    --cream: #f6f6f0;
+    --gold: #a17b35;
+    --gold-light: #d6b66a;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'Inter', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #555; font-family: var(--sans); color: var(--ink); padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; -webkit-font-smoothing: antialiased; }
+
+  .screen { position: relative; overflow: hidden; flex: none; isolation: isolate; }
+  .feed  { width: 360px; height: 450px; }
+  .story { width: 360px; height: 640px; }
+  .phone { width: 390px; height: 844px; background: var(--cream); }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 9.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); }
+  .eyebrow::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .serif { font-family: var(--serif); }
+  h1, h2 { font-family: var(--serif); font-weight: 400; color: var(--navy); letter-spacing: -.035em; line-height: 1.08; }
+  h1 em, h2 em { font-style: italic; color: var(--teal); }
+
+  /* ================= AD (dark, cinematic) ================= */
+  .ad { background: radial-gradient(120% 90% at 85% 15%, #24486b 0%, var(--navy) 38%, var(--navy-deep) 72%, var(--navy-ink) 100%); color: #fff; }
+  .ad .grid { position: absolute; inset: 0; z-index: -1; opacity: .07;
+    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(90% 70% at 70% 40%, #000 20%, transparent 80%); mask-image: radial-gradient(90% 70% at 70% 40%, #000 20%, transparent 80%); }
+  .ad .towers { position: absolute; z-index: -1; opacity: .09; }
+  .ad .towers i { position: absolute; bottom: 0; background: linear-gradient(180deg, #fff, transparent); }
+  .ad .glow { position: absolute; border-radius: 50%; z-index: -1; background: radial-gradient(circle, rgba(214, 182, 106, .42), rgba(214, 182, 106, .1) 40%, transparent 70%); }
+  .ad .beam { position: absolute; z-index: -1; filter: blur(16px); background: linear-gradient(180deg, rgba(214, 228, 240, .22), transparent 85%); }
+  .ad .coin { position: absolute; z-index: 1; filter: brightness(.94) contrast(1.05) drop-shadow(0 30px 40px rgba(0,0,0,.6)) drop-shadow(0 0 30px rgba(214,182,106,.25)); }
+  .lockup { position: absolute; display: flex; align-items: center; gap: 10px; z-index: 3; }
+  .lockup .tile { width: 30px; height: 30px; border-radius: 7px; background: #fff; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+  .lockup .name { white-space: nowrap; font-size: 11px; letter-spacing: .14em; font-weight: 500; line-height: 1.15; }
+  .lockup .name b { font-weight: 700; }
+  .lockup .name small { display: block; font-size: 6.5px; letter-spacing: .22em; color: rgba(255,255,255,.55); font-weight: 500; margin-top: 2px; }
+  .ad .rule { width: 34px; height: 1.5px; background: var(--gold-light); }
+  .ad h1 { color: #fff; }
+  .ad h1 em { color: var(--gold-light); }
+  .ad .sub { color: rgba(255,255,255,.72); }
+  .ad .sub b { color: #fff; font-weight: 600; }
+  .ad .cta { display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: var(--navy); font-weight: 600; border-radius: 5px; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+  .ad .cta .arr { width: 22px; height: 22px; border-radius: 50%; background: var(--teal); color: #fff; display: grid; place-items: center; }
+  .ad .foot { position: absolute; display: flex; justify-content: space-between; font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); z-index: 3; }
+  .ad .foot .url { color: var(--gold-light); letter-spacing: .02em; text-transform: none; font-size: 9px; font-weight: 500; }
+  .ad .foot .dot { color: var(--teal-soft); }
+
+  /* floating "markup check" card */
+  .check-card { position: absolute; z-index: 2; width: 178px; padding: 12px 13px 13px; border-radius: 10px;
+    background: linear-gradient(180deg, rgba(40, 66, 94, .82), rgba(20, 40, 62, .82)); border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 20px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.08); backdrop-filter: blur(8px); }
+  .check-card .ttl { font-size: 7.5px; letter-spacing: .2em; color: rgba(255,255,255,.6); font-weight: 600; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+  .check-card .row { margin-top: 10px; }
+  .check-card .lbl { display: flex; justify-content: space-between; font-size: 8.5px; color: rgba(255,255,255,.85); font-weight: 500; }
+  .check-card .lbl span:last-child { color: rgba(255,255,255,.5); }
+  .check-card .bar { margin-top: 5px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.1); overflow: hidden; }
+  .check-card .bar i { display: block; height: 100%; border-radius: 3px; }
+  .check-card .bar.ok i { width: 22%; background: linear-gradient(90deg, var(--teal), var(--teal-soft)); }
+  .check-card .bar.hi i { width: 88%; background: linear-gradient(90deg, #c99a45, #e9c77c); }
+  .check-card .badge { position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(180deg, #e7c87f, #b88f3e); display: grid; place-items: center; box-shadow: 0 6px 14px rgba(0,0,0,.35); color: var(--navy-ink); font-weight: 800; font-size: 14px; }
+
+  /* feed specifics */
+  .feed .lockup { top: 22px; left: 22px; }
+  .feed .rule { position: absolute; top: 150px; left: 22px; }
+  .feed h1 { position: absolute; top: 162px; left: 21px; width: 215px; font-size: 39px; z-index: 3; }
+  .feed .sub { position: absolute; top: 296px; left: 22px; width: 186px; font-size: 10.5px; line-height: 1.55; z-index: 3; }
+  .feed .coin { width: 250px; right: -92px; top: 150px; transform: rotate(-12deg); }
+  .feed .check-card { top: 52px; right: 20px; transform: rotate(-3deg); }
+  .feed .cta { position: absolute; left: 22px; bottom: 44px; height: 40px; padding: 0 8px 0 18px; font-size: 12px; z-index: 4; }
+  .feed .foot { left: 22px; right: 22px; bottom: 18px; }
+
+  /* story specifics */
+  .story .lockup { top: 52px; left: 50%; transform: translateX(-50%); }
+  .story .check-card { top: 104px; left: 50%; margin-left: -89px; transform: rotate(-2deg); width: 178px; }
+  .story .rule { position: absolute; top: 222px; left: 50%; margin-left: -17px; }
+  .story h1 { position: absolute; top: 236px; left: 20px; right: 20px; text-align: center; font-size: 48px; z-index: 3; }
+  .story .sub { position: absolute; top: 356px; left: 38px; right: 38px; text-align: center; font-size: 12px; line-height: 1.55; z-index: 3; }
+  .story .coin { width: 300px; left: 50%; margin-left: -150px; top: 418px; transform: rotate(-8deg); }
+  .story .shelf { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; z-index: 2; background: linear-gradient(180deg, transparent, rgba(9, 22, 38, .9) 60%); }
+  .story .cta { position: absolute; left: 30px; right: 30px; bottom: 78px; height: 50px; font-size: 14px; z-index: 4; }
+  .story .cta-sub { position: absolute; left: 0; right: 0; bottom: 56px; text-align: center; font-size: 10px; color: rgba(255,255,255,.7); z-index: 4; }
+  .story .foot { left: 30px; right: 30px; bottom: 26px; z-index: 4; }
+
+  /* ================= QUIZ (light, editorial) ================= */
+  .status { position: absolute; top: 0; left: 0; right: 0; height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 6px 30px 0 34px; z-index: 6; font-weight: 600; font-size: 15px; color: var(--ink); background: #fff; }
+  .status .icons { display: flex; gap: 6px; align-items: center; }
+  .home-ind { position: absolute; bottom: 8px; left: 50%; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); z-index: 6; }
+  .qhead { position: absolute; top: 50px; left: 0; right: 0; height: 56px; background: #fff; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 4; }
+  .qhead img { height: 30px; }
+  .secure { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--teal); }
+  .disclose-bar { position: absolute; top: 106px; left: 0; right: 0; padding: 7px 20px; font-size: 9.5px; color: var(--muted); background: #fff; border-bottom: 1px solid var(--line); z-index: 4; display: flex; justify-content: space-between; }
+  .disclose-bar u { color: var(--teal); text-underline-offset: 2px; }
+
+  .progress { position: absolute; top: 146px; left: 20px; right: 20px; z-index: 4; }
+  .progress .top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--muted); }
+  .progress .top .back { display: flex; align-items: center; gap: 4px; color: var(--navy); }
+  .progress .top .step b { color: var(--teal); }
+  .progress .track { margin-top: 10px; height: 4px; border-radius: 3px; background: #e2e8e8; overflow: hidden; }
+  .progress .track i { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--teal), #2a8f9c); }
+
+  .qbody { position: absolute; top: 196px; left: 20px; right: 20px; z-index: 3; }
+  .qtitle { margin-top: 12px; font-size: 32px; }
+  .qsub { margin-top: 10px; font-size: 13px; line-height: 1.55; color: var(--muted); }
+  .opts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 70px; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 2px rgba(23, 50, 77, .04); }
+  .opt .ico { width: 40px; height: 40px; flex: none; border-radius: 8px; background: var(--teal-pale); color: var(--teal); display: grid; place-items: center; }
+  .opt .ico.gold { background: #f6f0e2; color: var(--gold); }
+  .opt .ico img { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 2px 3px rgba(0,0,0,.2)); }
+  .opt .txt { flex: 1; }
+  .opt .t { font-size: 14.5px; font-weight: 600; color: var(--navy); letter-spacing: -.01em; }
+  .opt .d { margin-top: 2px; font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+  .opt .radio { width: 22px; height: 22px; flex: none; border-radius: 50%; border: 1.5px solid #c3cdcd; }
+  .opt.amount { min-height: 60px; }
+  .opt.amount .t { font-family: var(--serif); font-size: 21px; font-weight: 500; letter-spacing: -.01em; }
+  .opt.sel { border-color: var(--teal); background: #f3f9f8; box-shadow: 0 0 0 1px var(--teal), 0 8px 20px rgba(23, 107, 121, .12); }
+  .opt.sel .radio { border: none; background: var(--teal); display: grid; place-items: center; }
+  .opt.sel .radio::after { content: ''; width: 8px; height: 4.5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: translateY(-1px) rotate(-45deg); }
+
+  .qfoot { position: absolute; bottom: 30px; left: 20px; right: 20px; z-index: 4; }
+  .btn { height: 52px; border-radius: 5px; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 8px 20px rgba(23, 107, 121, .22); }
+  .btn.navy { background: var(--navy); box-shadow: 0 8px 20px rgba(23, 50, 77, .22); }
+  .btn-outline { height: 52px; border-radius: 5px; border: 1px solid var(--teal); color: var(--teal); display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 600; background: #fff; }
+  .fineline { margin-top: 12px; text-align: center; font-size: 10.5px; color: var(--muted); display: flex; justify-content: center; gap: 14px; }
+  .fineline span { display: flex; align-items: center; gap: 5px; }
+
+  /* intro */
+  .intro-hero { position: absolute; top: 106px; left: 0; right: 0; height: 222px; overflow: hidden; z-index: 2;
+    background: radial-gradient(120% 120% at 85% 0%, #24486b 0%, var(--navy) 45%, var(--navy-deep) 100%); }
+  .intro-hero .grid { position: absolute; inset: 0; opacity: .07; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 26px 26px; }
+  .intro-hero .glow { position: absolute; width: 420px; height: 420px; right: -150px; top: -110px; border-radius: 50%; background: radial-gradient(circle, rgba(214,182,106,.4), transparent 65%); }
+  .intro-hero .coin { position: absolute; width: 230px; right: -50px; top: 18px; transform: rotate(-12deg); filter: brightness(.94) drop-shadow(0 20px 30px rgba(0,0,0,.55)); }
+  .intro-hero .copy { position: absolute; left: 20px; top: 30px; width: 210px; color: #fff; }
+  .intro-hero .eyebrow { color: var(--gold-light); }
+  .intro-hero h1 { color: #fff; font-size: 36px; margin-top: 12px; }
+  .intro-hero h1 em { color: var(--gold-light); }
+  .intro-hero .chip { position: absolute; left: 20px; bottom: 18px; display: flex; align-items: center; gap: 7px; font-size: 10.5px; color: rgba(255,255,255,.8); font-weight: 500; }
+  .intro-hero .chip i { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74, 222, 128, .2); }
+  .intro-body { position: absolute; top: 348px; left: 20px; right: 20px; z-index: 3; }
+  .intro-body p.lede { font-size: 14px; line-height: 1.6; color: var(--ink); }
+  .intro-body p.lede b { color: var(--navy); }
+  .checks { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .checks div { display: flex; align-items: center; gap: 12px; font-size: 13.5px; font-weight: 500; color: var(--navy); }
+  .checks .c { width: 28px; height: 28px; flex: none; border-radius: 50%; border: 1px solid var(--gold-light); display: grid; place-items: center; color: var(--teal); background: #fff; }
+  .how { margin-top: 20px; background: #fff; border: 1px solid var(--line); border-radius: 8px; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .how > div { padding: 12px 10px; }
+  .how > div + div { border-left: 1px solid var(--line); }
+  .how .n { font-family: var(--serif); font-size: 20px; color: var(--teal); line-height: 1; }
+  .how .l { margin-top: 6px; font-size: 10.5px; line-height: 1.35; color: var(--muted); font-weight: 500; }
+
+  /* results */
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 30px; background: #e6f3ef; border: 1px solid #bfdcd5; font-size: 11px; font-weight: 700; color: var(--teal-dark); letter-spacing: .02em; }
+  .badge .tick { width: 20px; height: 20px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; }
+  .badge .tick::after { content: ''; width: 8px; height: 4px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: translateY(-1px) rotate(-45deg); }
+  .summary { margin-top: 16px; background: #fff; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
+  .summary .hd { padding: 9px 14px; border-bottom: 1px solid var(--line); font-size: 9.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+  .summary .hd u { color: var(--teal); letter-spacing: 0; text-transform: none; font-size: 11px; text-underline-offset: 2px; }
+  .summary .grid2 { display: grid; grid-template-columns: 1fr 1fr; }
+  .summary .grid2 > div { padding: 9px 14px; }
+  .summary .grid2 > div:nth-child(odd) { border-right: 1px solid var(--line); }
+  .summary .grid2 > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .summary .k { font-size: 10px; color: var(--muted); }
+  .summary .v { font-weight: 600; color: var(--navy); margin-top: 1px; }
+  .form { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .form .row { display: flex; gap: 9px; }
+  .field { flex: 1; height: 52px; border-radius: 6px; background: #fff; border: 1px solid #ccd5d5; padding: 7px 14px; display: flex; flex-direction: column; justify-content: center; }
+  .field label { font-size: 10px; font-weight: 600; color: var(--muted); }
+  .field .v { margin-top: 2px; font-size: 15px; color: var(--ink); }
+  .field.focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(23, 107, 121, .14); }
+  .field.focus label { color: var(--teal); }
+  .caret { display: inline-block; width: 1.5px; height: 16px; background: var(--teal); vertical-align: -3px; margin-left: 1px; }
+  .consent { margin-top: 10px; font-size: 8.5px; line-height: 1.5; color: var(--muted); }
+  .consent u { color: var(--teal); }
+
+  /* confirmation */
+  .confirm-hero { position: absolute; top: 106px; left: 0; right: 0; height: 250px; z-index: 2; overflow: hidden;
+    background: radial-gradient(110% 110% at 50% 0%, #24486b 0%, var(--navy) 45%, var(--navy-deep) 100%); text-align: center; color: #fff; }
+  .confirm-hero .grid { position: absolute; inset: 0; opacity: .07; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 26px 26px; }
+  .confirm-hero .glow { position: absolute; width: 380px; height: 380px; left: 50%; margin-left: -190px; top: -150px; border-radius: 50%; background: radial-gradient(circle, rgba(133,185,186,.35), transparent 65%); }
+  .seal { position: relative; margin: 30px auto 0; width: 76px; height: 76px; border-radius: 50%; background: var(--teal); display: grid; place-items: center;
+    box-shadow: 0 0 0 8px rgba(133,185,186,.15), 0 0 0 18px rgba(133,185,186,.07), 0 16px 30px rgba(0,0,0,.35); }
+  .seal::after { content: ''; width: 26px; height: 13px; border-left: 4px solid #fff; border-bottom: 4px solid #fff; transform: translateY(-4px) rotate(-45deg); }
+  .confirm-hero .eyebrow { margin-top: 26px; color: var(--gold-light); justify-content: center; }
+  .confirm-hero h1 { color: #fff; font-size: 36px; margin-top: 8px; }
+  .confirm-hero h1 em { color: var(--gold-light); }
+  .confirm-body { position: absolute; top: 374px; left: 20px; right: 20px; z-index: 3; }
+  .confirm-body .lede { font-size: 13.5px; line-height: 1.55; color: var(--ink); }
+  .next { margin-top: 14px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+  .next .hd { padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 9.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .next .st { display: flex; gap: 12px; padding: 11px 14px; }
+  .next .st + .st { border-top: 1px solid var(--line); }
+  .next .num { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--teal-pale); color: var(--teal); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
+  .next .t { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .next .d { margin-top: 1px; font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .guide { margin-top: 12px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; background: #f6f0e2; border: 1px solid #e8dcc0; }
+  .guide .ico { width: 36px; height: 36px; flex: none; border-radius: 7px; background: #fff; color: var(--gold); display: grid; place-items: center; }
+  .guide .k { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .guide .t { font-size: 13px; font-weight: 600; color: var(--navy); margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="mark" viewBox="0 0 40 42"><path d="M4 33V13l9-5v25z" fill="#17324D" opacity=".5"/><path d="M15 33V8l9-5v30z" fill="#17324D"/><path d="M26 33V15l9-5v23z" fill="#176B79"/><path d="m5 39 15-3 15 3" stroke="#17324D" stroke-width="2" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.4 4-2 1.5a11 11 0 0 0 6.4 6.4l1.5-2 4 1.4v2.6A2 2 0 0 1 18.5 19 15.5 15.5 0 0 1 5 5.5a2 2 0 0 1 1.6-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="slab" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 6h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="14" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5Z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></symbol>
+  <symbol id="vault" viewBox="0 0 24 24"><path d="M4 9.5 12 4l8 5.5M5.5 10v8M10 10v8M14 10v8M18.5 10v8M3.5 20h17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M4 11 12 4.5l8 6.5M6 9.5V20h12V9.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="10" y="14" width="4" height="6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="split" viewBox="0 0 24 24"><rect x="3.5" y="5" width="7" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="5" width="7" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="tag" viewBox="0 0 24 24"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3-8.7 8.7-8.3-8.3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="down" viewBox="0 0 24 24"><path d="M4 6l6 6 4-4 6 6M20 9.5V14h-4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2-1.3-2 1.3-2-1.3-2 1.3-2-1.3-2 1.3v-17Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8.5h6M9 12h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2Zm0 0v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx=".8" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx=".8" fill="currentColor"/></symbol>
+  <symbol id="wifi" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0L8 11.5ZM3.4 6.8a6.5 6.5 0 0 1 9.2 0l-1.2 1.2a4.8 4.8 0 0 0-6.8 0L3.4 6.8ZM1.2 4.6a9.6 9.6 0 0 1 13.6 0l-1.2 1.2a7.9 7.9 0 0 0-11.2 0L1.2 4.6Z" fill="currentColor"/></symbol>
+  <symbol id="batt" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".45"/><rect x="2.5" y="2.5" width="20" height="8" rx="2" fill="currentColor"/><rect x="25.5" y="4.5" width="1.6" height="4" rx=".8" fill="currentColor" opacity=".5"/></symbol>
+</svg>
+
+<template id="status-tpl">
+  <div class="status"><span>9:41</span><span class="icons"><svg width="18" height="12"><use href="#sig"/></svg><svg width="16" height="12"><use href="#wifi"/></svg><svg width="28" height="13"><use href="#batt"/></svg></span></div>
+  <div class="home-ind"></div>
+</template>
+<template id="qhead-tpl">
+  <header class="qhead"><img src="assets/logo-horizontal.svg" alt="top provider picks"><span class="secure"><svg width="13" height="13"><use href="#lock"/></svg>Secure</span></header>
+</template>
+<template id="towers-tpl">
+  <i style="left:0;width:44px;height:62%"></i><i style="left:52px;width:44px;height:100%"></i><i style="left:104px;width:44px;height:74%"></i>
+</template>
+
+<!-- ============ 01 · FEED AD ============ -->
+<section class="screen feed ad" id="s01-ad-feed">
+  <div class="grid"></div>
+  <div class="towers" style="right:20px;bottom:0;width:150px;height:300px" data-tpl="towers-in"></div>
+  <div class="glow" style="width:520px;height:520px;right:-260px;top:40px"></div>
+  <div class="beam" style="width:150px;height:560px;right:60px;top:-170px;transform:rotate(24deg)"></div>
+  <img class="coin" src="assets/liberty-coin.png" alt="">
+  <div class="lockup"><span class="tile"><svg width="20" height="21"><use href="#mark"/></svg></span><span class="name">TOP <b>PROVIDER PICKS</b><small>INDEPENDENT COMPARISONS</small></span></div>
+  <div class="check-card">
+    <span class="badge">!</span>
+    <div class="ttl">Coin markup check</div>
+    <div class="row"><div class="lbl"><span>Standard bullion</span><span>low premium</span></div><div class="bar ok"><i></i></div></div>
+    <div class="row"><div class="lbl"><span>Collector coins</span><span>high premium</span></div><div class="bar hi"><i></i></div></div>
+  </div>
+  <div class="rule"></div>
+  <h1>Were you <em>oversold</em> on gold?</h1>
+  <p class="sub">If you were steered into <b>high-markup collector coins</b>, see if you qualify for a <b>free buyback review.</b></p>
+  <div class="cta">Take the 60-second quiz <span class="arr"><svg width="13" height="13"><use href="#arrow"/></svg></span></div>
+  <div class="foot"><span class="url">topproviderpicks.com</span><span>Free <span class="dot">•</span> No obligation</span></div>
+</section>
+
+<!-- ============ 02 · STORY AD ============ -->
+<section class="screen story ad" id="s02-ad-story">
+  <div class="grid"></div>
+  <div class="towers" style="left:105px;bottom:0;width:150px;height:420px" data-tpl="towers-in"></div>
+  <div class="glow" style="width:620px;height:620px;left:-130px;top:330px"></div>
+  <div class="beam" style="width:180px;height:700px;left:90px;top:-220px;transform:rotate(-12deg)"></div>
+  <img class="coin" src="assets/liberty-coin.png" alt="">
+  <div class="shelf"></div>
+  <div class="lockup"><span class="tile"><svg width="20" height="21"><use href="#mark"/></svg></span><span class="name">TOP <b>PROVIDER PICKS</b><small>INDEPENDENT COMPARISONS</small></span></div>
+  <div class="check-card">
+    <span class="badge">!</span>
+    <div class="ttl">Coin markup check</div>
+    <div class="row"><div class="lbl"><span>Standard bullion</span><span>low premium</span></div><div class="bar ok"><i></i></div></div>
+    <div class="row"><div class="lbl"><span>Collector coins</span><span>high premium</span></div><div class="bar hi"><i></i></div></div>
+  </div>
+  <div class="rule"></div>
+  <h1>Were you <em>oversold</em> on gold?</h1>
+  <p class="sub">Many IRA owners paid steep premiums for collector coins. <b>Find out if you qualify for a free buyback review.</b></p>
+  <div class="cta">See if you qualify <span class="arr"><svg width="13" height="13"><use href="#arrow"/></svg></span></div>
+  <div class="cta-sub">4 quick questions · About 60 seconds</div>
+  <div class="foot"><span class="url">topproviderpicks.com</span><span>Advertisement</span></div>
+</section>
+
+<!-- ============ 03 · INTRO ============ -->
+<section class="screen phone" id="s03-intro">
+  <div data-tpl="qhead"></div>
+  <div class="intro-hero">
+    <div class="grid"></div><div class="glow"></div>
+    <img class="coin" src="assets/liberty-coin.png" alt="">
+    <div class="copy"><span class="eyebrow">Buyback review · 2026</span><h1>Overpaid for gold? Let’s <em>check.</em></h1></div>
+    <div class="chip"><i></i>Free to use · Takes about 60 seconds</div>
+  </div>
+  <div class="intro-body">
+    <p class="lede">Collector and “limited edition” coins often sell at <b>premiums far above their metal value.</b> Answer four questions and we’ll tell you if you qualify for a free buyback review with a vetted precious metals specialist.</p>
+    <div class="checks">
+      <div><span class="c"><svg width="14" height="14"><use href="#check"/></svg></span>See what your coins are worth today</div>
+      <div><span class="c"><svg width="14" height="14"><use href="#check"/></svg></span>Understand the markup you paid</div>
+      <div><span class="c"><svg width="14" height="14"><use href="#check"/></svg></span>Get options, with no obligation</div>
+    </div>
+    <div class="how">
+      <div><div class="n">01</div><div class="l">Answer four quick questions</div></div>
+      <div><div class="n">02</div><div class="l">See if you qualify</div></div>
+      <div><div class="n">03</div><div class="l">Get your free review</div></div>
+    </div>
+  </div>
+  <div class="qfoot">
+    <div class="btn">Start the quiz <svg width="16" height="16"><use href="#arrow"/></svg></div>
+    <div class="fineline"><span><svg width="12" height="12"><use href="#lock"/></svg>Private &amp; secure</span><span><svg width="12" height="12"><use href="#clock"/></svg>About 60 seconds</span></div>
+  </div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 04 · Q1 ============ -->
+<section class="screen phone" id="s04-q1-coin-type">
+  <div data-tpl="qhead"></div>
+  <div class="disclose-bar"><span>We may be compensated by providers we connect you with.</span><u>Disclosure</u></div>
+  <div class="progress"><div class="top"><span class="back"><svg width="14" height="14"><use href="#chev"/></svg>Back</span><span class="step">Question <b>1</b> of 4</span></div><div class="track"><i style="width:25%"></i></div></div>
+  <div class="qbody">
+    <span class="eyebrow">Your holdings</span>
+    <h2 class="qtitle">What kind of coins were you <em>sold?</em></h2>
+    <p class="qsub">Pick the closest match. Most overpriced portfolios fall into one of these.</p>
+    <div class="opts">
+      <div class="opt sel"><span class="ico gold"><img src="assets/liberty-coin.png" alt=""></span><span class="txt"><div class="t">Collector coins</div><div class="d">Sold as rare, limited or special edition</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#slab"/></svg></span><span class="txt"><div class="t">Graded, slabbed coins</div><div class="d">Sealed in plastic with a grade like PF70</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#globe"/></svg></span><span class="txt"><div class="t">Foreign or commemorative</div><div class="d">Lunar, royal, themed or series coins</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#help"/></svg></span><span class="txt"><div class="t">I’m not sure</div><div class="d">That’s common. A specialist can identify them.</div></span><span class="radio"></span></div>
+    </div>
+  </div>
+  <div class="qfoot"><div class="btn">Continue <svg width="16" height="16"><use href="#arrow"/></svg></div></div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 05 · Q2 ============ -->
+<section class="screen phone" id="s05-q2-amount">
+  <div data-tpl="qhead"></div>
+  <div class="disclose-bar"><span>We may be compensated by providers we connect you with.</span><u>Disclosure</u></div>
+  <div class="progress"><div class="top"><span class="back"><svg width="14" height="14"><use href="#chev"/></svg>Back</span><span class="step">Question <b>2</b> of 4</span></div><div class="track"><i style="width:50%"></i></div></div>
+  <div class="qbody">
+    <span class="eyebrow">Your investment</span>
+    <h2 class="qtitle">Roughly how much did you <em>invest?</em></h2>
+    <p class="qsub">An estimate is fine. It helps match you with the right specialist.</p>
+    <div class="opts">
+      <div class="opt amount"><span class="txt"><div class="t">$25,000 – $75,000</div></span><span class="radio"></span></div>
+      <div class="opt amount sel"><span class="txt"><div class="t">$75,000 – $150,000</div></span><span class="radio"></span></div>
+      <div class="opt amount"><span class="txt"><div class="t">$150,000 – $350,000</div></span><span class="radio"></span></div>
+      <div class="opt amount"><span class="txt"><div class="t">$350,000 or more</div></span><span class="radio"></span></div>
+    </div>
+  </div>
+  <div class="qfoot"><div class="btn">Continue <svg width="16" height="16"><use href="#arrow"/></svg></div></div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 06 · Q3 ============ -->
+<section class="screen phone" id="s06-q3-where-held">
+  <div data-tpl="qhead"></div>
+  <div class="disclose-bar"><span>We may be compensated by providers we connect you with.</span><u>Disclosure</u></div>
+  <div class="progress"><div class="top"><span class="back"><svg width="14" height="14"><use href="#chev"/></svg>Back</span><span class="step">Question <b>3</b> of 4</span></div><div class="track"><i style="width:75%"></i></div></div>
+  <div class="qbody">
+    <span class="eyebrow">Your account</span>
+    <h2 class="qtitle">Where are your metals held <em>today?</em></h2>
+    <p class="qsub">Both IRA and home-stored metals can be reviewed.</p>
+    <div class="opts">
+      <div class="opt sel"><span class="ico"><svg width="20" height="20"><use href="#vault"/></svg></span><span class="txt"><div class="t">In a Gold or Silver IRA</div><div class="d">Stored at a depository through a custodian</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#home"/></svg></span><span class="txt"><div class="t">Delivered to my home</div><div class="d">Coins I hold personally or in a safe</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#split"/></svg></span><span class="txt"><div class="t">Some of both</div><div class="d">Part in an IRA, part at home</div></span><span class="radio"></span></div>
+    </div>
+  </div>
+  <div class="qfoot"><div class="btn">Continue <svg width="16" height="16"><use href="#arrow"/></svg></div></div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 07 · Q4 ============ -->
+<section class="screen phone" id="s07-q4-frustration">
+  <div data-tpl="qhead"></div>
+  <div class="disclose-bar"><span>We may be compensated by providers we connect you with.</span><u>Disclosure</u></div>
+  <div class="progress"><div class="top"><span class="back"><svg width="14" height="14"><use href="#chev"/></svg>Back</span><span class="step">Question <b>4</b> of 4</span></div><div class="track"><i style="width:100%"></i></div></div>
+  <div class="qbody">
+    <span class="eyebrow">Your experience</span>
+    <h2 class="qtitle">What’s been the <em>biggest issue?</em></h2>
+    <p class="qsub">Choose the one that fits best. You’re not the only one.</p>
+    <div class="opts">
+      <div class="opt sel"><span class="ico gold"><svg width="20" height="20"><use href="#tag"/></svg></span><span class="txt"><div class="t">I paid more than they’re worth</div><div class="d">The markup was never explained</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#down"/></svg></span><span class="txt"><div class="t">The buyback offer was too low</div><div class="d">A fraction of what I originally paid</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#receipt"/></svg></span><span class="txt"><div class="t">Fees I wasn’t told about</div><div class="d">Storage, custodian or “admin” charges</div></span><span class="radio"></span></div>
+      <div class="opt"><span class="ico"><svg width="20" height="20"><use href="#phone"/></svg></span><span class="txt"><div class="t">I can’t reach my dealer</div><div class="d">Calls and emails go unanswered</div></span><span class="radio"></span></div>
+    </div>
+  </div>
+  <div class="qfoot"><div class="btn">See my results <svg width="16" height="16"><use href="#arrow"/></svg></div></div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 08 · QUALIFIED + FORM ============ -->
+<section class="screen phone" id="s08-qualified-form">
+  <div data-tpl="qhead"></div>
+  <div class="qbody" style="top:128px">
+    <span class="badge"><span class="tick"></span>You qualify for a free review</span>
+    <h2 class="qtitle" style="font-size:31px">Good news. We found a <em>specialist match.</em></h2>
+    <p class="qsub">A vetted precious metals specialist can value your coins at today’s market price and walk you through your options.</p>
+    <div class="summary">
+      <div class="hd"><span>Your answers</span><u>Edit</u></div>
+      <div class="grid2">
+        <div><div class="k">Coin type</div><div class="v">Collector</div></div>
+        <div><div class="k">Invested</div><div class="v">$75K – $150K</div></div>
+        <div><div class="k">Held in</div><div class="v">Gold IRA</div></div>
+        <div><div class="k">Main issue</div><div class="v">Overpaid</div></div>
+      </div>
+    </div>
+    <div class="form">
+      <div class="row">
+        <div class="field"><label>First name</label><div class="v">Robert</div></div>
+        <div class="field"><label>Last name</label><div class="v">Hayes</div></div>
+      </div>
+      <div class="field"><label>Email</label><div class="v">rhayes@email.com</div></div>
+      <div class="field focus"><label>Phone</label><div class="v">(555) 214-08<span class="caret"></span></div></div>
+    </div>
+    <div class="btn" style="margin-top:12px">Get my free review <svg width="16" height="16"><use href="#arrow"/></svg></div>
+    <p class="consent">By tapping “Get my free review,” you agree that top provider picks and one matched precious metals provider may contact you by call, text or email at the number provided, including by automated means. Consent is not a condition of purchase. Msg &amp; data rates may apply. Reply STOP to opt out. See our <u>Privacy Policy</u> and <u>Advertising Disclosure</u>.</p>
+  </div>
+  <div data-tpl="status"></div>
+</section>
+
+<!-- ============ 09 · CONFIRMATION ============ -->
+<section class="screen phone" id="s09-confirmation">
+  <div data-tpl="qhead"></div>
+  <div class="confirm-hero">
+    <div class="grid"></div><div class="glow"></div>
+    <div class="seal"></div>
+    <span class="eyebrow">Request received</span>
+    <h1>You’re all set, <em>Robert.</em></h1>
+  </div>
+  <div class="confirm-body">
+    <p class="lede">Your buyback review request is in. Here’s what to expect.</p>
+    <div class="next">
+      <div class="hd">What happens next</div>
+      <div class="st"><span class="num">1</span><div><div class="t">A specialist reaches out</div><div class="d">Usually within one business day, by phone.</div></div></div>
+      <div class="st"><span class="num">2</span><div><div class="t">Your coins are valued</div><div class="d">Coin by coin, at today’s market price.</div></div></div>
+      <div class="st"><span class="num">3</span><div><div class="t">You decide, no pressure</div><div class="d">Keep, sell or reposition. It’s your call.</div></div></div>
+    </div>
+    <div class="guide">
+      <span class="ico"><svg width="18" height="18"><use href="#book"/></svg></span>
+      <div><div class="k">While you wait</div><div class="t">How gold coin markups work</div></div>
+    </div>
+  </div>
+  <div class="qfoot">
+    <div class="btn navy">Read the guide <svg width="16" height="16"><use href="#arrow"/></svg></div>
+    <div class="fineline"><span>Tip: keep your purchase invoice or IRA statement handy.</span></div>
+  </div>
+  <div data-tpl="status"></div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-tpl]').forEach(el => {
+    const name = el.dataset.tpl;
+    if (name === 'towers-in') { el.appendChild(document.getElementById('towers-tpl').content.cloneNode(true)); return; }
+    el.replaceWith(document.getElementById(name + '-tpl').content.cloneNode(true));
+  });
+</script>
+</body>
+</html>
