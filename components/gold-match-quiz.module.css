@@ -98,22 +98,7 @@
   color: var(--muted);
 }
 
-.disclosureBox {
-  padding: 13px 15px;
-  border-left: 3px solid var(--gold);
-  background: #f5f2e8;
-  border-radius: 0 8px 8px 0;
-  font-size: 12px;
-  line-height: 1.55;
-  color: #495660;
-}
 
-.disclosureBox a {
-  color: var(--teal);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 .quizCard {
   background: #ffffff;
@@ -499,6 +484,11 @@
   flex-direction: column;
   gap: 14px;
   box-shadow: 0 12px 30px rgba(23, 50, 77, 0.05);
+}
+
+.matchesGridSingle {
+  grid-template-columns: minmax(0, 640px);
+  justify-content: center;
 }
 
 .matchCardPrimary {

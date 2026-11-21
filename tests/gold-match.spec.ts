@@ -1,10 +1,7 @@
 import { test, expect } from "@playwright/test";
-import {
-  getVisibleQuestions,
-  scoreAndMatchGoldQuiz,
-} from "../lib/gold-match";
+import { getVisibleQuestions, scoreAndMatchGoldQuiz } from "../lib/gold-match";
 
-test("quiz branching and matching logic covers IRA rollover, low-balance, and cash paths", () => {
+test("quiz branching covers IRA rollover, low-balance, and cash paths, all matched to Citadel Gold", () => {
   expect(getVisibleQuestions({ hasRetirementAccount: "yes" })).toHaveLength(5);
   expect(getVisibleQuestions({ hasRetirementAccount: "no" })).toHaveLength(4);
 
@@ -19,8 +16,6 @@ test("quiz branching and matching logic covers IRA rollover, low-balance, and ca
   expect(highIntent.score).toBeGreaterThanOrEqual(90);
   expect(highIntent.matches.map((m) => m.provider.id)).toEqual([
     "citadel-gold",
-    "goldco",
-    "augusta-precious-metals",
   ]);
   expect(highIntent.matches[0].sponsored).toBe(true);
 
@@ -32,9 +27,7 @@ test("quiz branching and matching logic covers IRA rollover, low-balance, and ca
     timeline: "1-3-months",
   });
   expect(lowBalance.matches.map((m) => m.provider.id)).toEqual([
-    "birch-gold-group",
-    "american-hartford-gold",
-    "apmex",
+    "citadel-gold",
   ]);
 
   const cashPath = scoreAndMatchGoldQuiz({
@@ -43,11 +36,7 @@ test("quiz branching and matching logic covers IRA rollover, low-balance, and ca
     accountBalance: "25k-50k",
     timeline: "researching",
   });
-  expect(cashPath.matches.map((m) => m.provider.id)).toEqual([
-    "citadel-gold",
-    "apmex",
-    "jm-bullion",
-  ]);
+  expect(cashPath.matches.map((m) => m.provider.id)).toEqual(["citadel-gold"]);
 });
 
 test("gold match landing page renders with minimal navigation, noindex, and alias redirect", async ({
@@ -98,6 +87,42 @@ test("POST /api/gold-match validates required fields before forwarding", async (
   expect(missingConsent.status()).toBe(400);
 });
 
+test("POST /api/gold-match returns an error when the CRM rejects the lead", async ({
+  request,
+}) => {
+  const { createServer } = await import("node:http");
+  let crmCalls = 0;
+  const mockCrm = createServer((_req, res) => {
+    crmCalls++;
+    res.writeHead(401, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Unauthorized" }));
+  });
+  await new Promise<void>((resolve) =>
+    mockCrm.listen(3199, "127.0.0.1", resolve),
+  );
+
+  try {
+    const response = await request.post("/api/gold-match", {
+      data: {
+        firstName: "Jane",
+        lastName: "Doe",
+        email: "jane@example.com",
+        phone: "5558675309",
+        consent: true,
+        answers: {},
+      },
+    });
+    expect(response.status()).toBe(502);
+    const body = (await response.json()) as { error?: string; match?: unknown };
+    expect(body.error).toBeTruthy();
+    expect(body.match).toBeUndefined();
+    // 401 is not retryable, so exactly one attempt.
+    expect(crmCalls).toBe(1);
+  } finally {
+    await new Promise<void>((resolve) => mockCrm.close(() => resolve()));
+  }
+});
+
 test("interactive quiz completes 5-question IRA flow, preserves UTMs, and displays matched companies", async ({
   page,
 }) => {
@@ -109,9 +134,7 @@ test("interactive quiz completes 5-question IRA flow, preserves UTMs, and displa
     const payload = request.postDataJSON() as Record<string, unknown>;
     capturedPayloads.push(payload);
     const match = scoreAndMatchGoldQuiz(
-      (payload.answers ?? {}) as Parameters<
-        typeof scoreAndMatchGoldQuiz
-      >[0],
+      (payload.answers ?? {}) as Parameters<typeof scoreAndMatchGoldQuiz>[0],
     );
     await route.fulfill({
       status: 200,
@@ -154,11 +177,11 @@ test("interactive quiz completes 5-question IRA flow, preserves UTMs, and displa
   await page.getByLabel("Email address").fill("jane.doe@example.com");
   await page.getByLabel("Phone number").fill("(555) 867-5309");
 
-  await page.getByRole("button", { name: /See My Gold Matches/ }).click();
+  await page.getByRole("button", { name: /See My Gold Match/ }).click();
 
   await expect(
     page.getByRole("heading", {
-      name: /You qualify for guided Gold IRA rollover comparisons/i,
+      name: /You qualify for a guided Gold IRA rollover/i,
     }),
   ).toBeVisible();
 

@@ -6,7 +6,11 @@ import { primaryCategories } from "@/lib/primary-categories";
 import { siteName } from "@/lib/site";
 import { Brand, Icon } from "./icons";
 import "./gold-match-chrome.css";
-const LP_ROUTES = new Set(["/gold/match"]);
+const LP_LABELS: Record<string, string> = {
+  "/gold/match": "Gold IRA Match Tool",
+  "/gold/buyback": "Free Buyback Review",
+};
+const LP_ROUTES = new Set(Object.keys(LP_LABELS));
 
 export function Header() {
   const [menu, setMenu] = useState(false);
@@ -37,9 +41,12 @@ export function Header() {
           </Link>
           <div className="header-lp-meta">
             <span className="header-lp-pill">
-              <Icon name="shield" size={14} /> Gold IRA Match Tool
+              <Icon name="shield" size={14} /> {LP_LABELS[pathname]}
             </span>
-            <Link href="/advertising-disclosure" className="header-lp-disclosure">
+            <Link
+              href="/advertising-disclosure"
+              className="header-lp-disclosure"
+            >
               Advertising disclosure
             </Link>
           </div>
@@ -145,9 +152,9 @@ export function Footer() {
             <Brand light />
             <p>
               Advertising disclosure: {siteName} may be compensated by gold
-              companies featured in your match results, which can influence
-              order and presentation. Always review written dealer, custodian,
-              and buyback terms before funding an account.
+              companies featured on this page, which can influence order and
+              presentation. Always review written dealer, custodian, and buyback
+              terms before funding an account.
             </p>
           </div>
           <div className="footer-bottom">

@@ -12,4 +12,5 @@ export const aliases: Record<string, string> = {
   "/banking": "/banking/best-banks",
   "/investing": "/investing/best-investment-companies",
   "/gold-ira-match": "/gold/match",
+  "/gold-buyback-review": "/gold/buyback",
 };

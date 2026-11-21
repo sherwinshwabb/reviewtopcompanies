@@ -12,6 +12,7 @@ import {
   type QuizQuestionId,
 } from "@/lib/gold-match";
 import styles from "./gold-match-quiz.module.css";
+import { useUnfinishedLeadBeacon } from "./use-unfinished-lead";
 
 const LETTERS = ["A", "B", "C", "D", "E"];
 
@@ -57,6 +58,22 @@ export function GoldMatchQuiz() {
       ? 92
       : Math.round(((stepIndex + 1) / (totalQuestionSteps + 1)) * 100);
 
+  useUnfinishedLeadBeacon(
+    "/api/gold-match",
+    isContactStep && !result && !submitting,
+    () => ({
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim(),
+      phone: phone.replace(/\D/g, ""),
+      answers,
+      lastStep: "contact form",
+      landingPageUrl: window.location.href,
+      referrerUrl: document.referrer || undefined,
+      utms: readUtmParams(),
+    }),
+  );
+
   function handleSelectOption(questionId: QuizQuestionId, value: string) {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
 
@@ -100,7 +117,9 @@ export function GoldMatchQuiz() {
       return;
     }
     if (!consent) {
-      setError("Please confirm contact consent so we can deliver your matches.");
+      setError(
+        "Please confirm contact consent so we can deliver your matches.",
+      );
       return;
     }
 
@@ -129,14 +148,18 @@ export function GoldMatchQuiz() {
       };
 
       if (!response.ok || !data.match) {
-        setError(data.error || "Could not prepare your matches. Please try again.");
+        setError(
+          data.error || "Could not prepare your matches. Please try again.",
+        );
         return;
       }
 
       setResult(data.match);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
-      setError("Connection error while loading your matches. Please try again.");
+      setError(
+        "Connection error while loading your matches. Please try again.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -174,7 +197,11 @@ export function GoldMatchQuiz() {
                 </div>
               </div>
 
-              <div className={styles.matchesGrid}>
+              <div
+                className={`${styles.matchesGrid} ${
+                  result.matches.length === 1 ? styles.matchesGridSingle : ""
+                }`}
+              >
                 {result.matches.map((item, idx) => (
                   <article
                     key={item.provider.id}
@@ -184,7 +211,9 @@ export function GoldMatchQuiz() {
                   >
                     <div className={styles.matchCardTop}>
                       <span className={styles.matchRankPill}>
-                        Match #{idx + 1}
+                        {result.matches.length > 1
+                          ? `Match #${idx + 1}`
+                          : "Your match"}
                       </span>
                       {item.sponsored && (
                         <Link
@@ -305,24 +334,13 @@ export function GoldMatchQuiz() {
                       <Icon name="check" size={18} />
                     </span>
                     <div>
-                      <strong>Instant on-screen provider matches</strong>
+                      <strong>Instant on-screen match</strong>
                       <span>
-                        Compare 1–3 matched companies immediately with no account
-                        setup required.
+                        See your matched gold specialist immediately with no
+                        account setup required.
                       </span>
                     </div>
                   </div>
-                </div>
-
-                <div className={styles.disclosureBox}>
-                  <strong>Advertiser disclosure:</strong> Top Provider Picks is
-                  an independent comparison site and may be compensated by gold
-                  companies featured in your match results, including paid
-                  placements such as Citadel Gold.{" "}
-                  <Link href="/advertising-disclosure">
-                    Read our disclosure
-                  </Link>
-                  .
                 </div>
               </div>
 
@@ -333,7 +351,7 @@ export function GoldMatchQuiz() {
                 <div className={styles.progressHeader}>
                   <span className={styles.stepText}>
                     {isContactStep
-                      ? "Final step: Unlock your matches"
+                      ? "Final step: Unlock your match"
                       : `Question ${stepIndex + 1} of ${totalQuestionSteps}`}
                   </span>
                   <span className={styles.percentPill}>{progressPercent}%</span>
@@ -449,11 +467,11 @@ export function GoldMatchQuiz() {
                   >
                     <span className={styles.stepEyebrow}>MATCHES READY</span>
                     <h2 className={styles.questionPrompt}>
-                      Where should we show your personalized Gold IRA matches?
+                      Where should we send your personalized Gold IRA match?
                     </h2>
                     <p className={styles.questionHelper}>
-                      Enter your contact details to see your matched providers
-                      immediately and receive your comparison summary.
+                      Enter your contact details to see your match immediately
+                      and receive your summary.
                     </p>
 
                     <div className={styles.formGrid}>
@@ -516,7 +534,7 @@ export function GoldMatchQuiz() {
                         onChange={(e) => setConsent(e.target.checked)}
                       />
                       <span>
-                        By clicking &ldquo;See My Gold Matches,&rdquo; I agree to
+                        By clicking &ldquo;See My Gold Match,&rdquo; I agree to
                         the{" "}
                         <Link href="/privacy" target="_blank">
                           Privacy Policy
@@ -547,7 +565,7 @@ export function GoldMatchQuiz() {
                     >
                       {submitting
                         ? "Matching your profile..."
-                        : "See My Gold Matches"}
+                        : "See My Gold Match"}
                       {!submitting && <Icon name="arrow" size={17} />}
                     </button>
 
@@ -581,26 +599,26 @@ export function GoldMatchQuiz() {
           <div className={styles.supportGrid}>
             <div className={styles.supportCard}>
               <span className={styles.supportStep}>1</span>
-              <h3>Instant 1–3 provider match</h3>
+              <h3>Instant specialist match</h3>
               <p>
                 We line up your age, account type, balance range, and timeline
-                against dealer minimums and IRA rollover specialties.
+                against account minimums and IRA rollover requirements.
               </p>
             </div>
             <div className={styles.supportCard}>
               <span className={styles.supportStep}>2</span>
-              <h3>Side-by-side fine print</h3>
+              <h3>Fine print up front</h3>
               <p>
-                Every match card highlights stated minimums, key strengths, and
-                the fee or buyback questions to ask in writing first.
+                Your match card highlights the stated minimum, key strengths,
+                and the fee or buyback questions to ask in writing first.
               </p>
             </div>
             <div className={styles.supportCard}>
               <span className={styles.supportStep}>3</span>
               <h3>Direct specialist follow-up</h3>
               <p>
-                A specialist from your matched provider may reach out by phone
-                or email to walk through rollover rules and current pricing.
+                A specialist from your matched company may reach out by phone or
+                email to walk through rollover rules and current pricing.
               </p>
             </div>
           </div>

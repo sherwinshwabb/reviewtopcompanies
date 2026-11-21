@@ -4,20 +4,11 @@ import { isPaidPlacement } from "./commercial";
 export type AgeRange = "under-50" | "50-59" | "60-69" | "70+";
 export type HasRetirementAccount = "yes" | "no";
 export type AccountLocation =
-  | "former-employer-or-ira"
-  | "current-employer"
-  | "not-sure";
+  "former-employer-or-ira" | "current-employer" | "not-sure";
 export type AccountBalance =
-  | "under-25k"
-  | "25k-50k"
-  | "50k-100k"
-  | "100k-250k"
-  | "250k+";
+  "under-25k" | "25k-50k" | "50k-100k" | "100k-250k" | "250k+";
 export type RolloverTimeline =
-  | "within-30-days"
-  | "1-3-months"
-  | "3-6-months"
-  | "researching";
+  "within-30-days" | "1-3-months" | "3-6-months" | "researching";
 
 export type GoldQuizAnswers = {
   ageRange?: AgeRange;
@@ -52,7 +43,10 @@ export type MatchedProvider = {
 
 export type GoldMatchResult = {
   score: number;
-  tier: "Rollover-Ready Match" | "Guided Gold Match" | "Starter & Direct Bullion Match";
+  tier:
+    | "Rollover-Ready Match"
+    | "Guided Gold Match"
+    | "Starter & Direct Bullion Match";
   summaryHeading: string;
   summaryBody: string;
   qualifierAnswer: string;
@@ -64,7 +58,11 @@ export const AGE_OPTIONS: QuizOption<AgeRange>[] = [
   { value: "under-50", label: "Under 50", detail: "Early retirement planning" },
   { value: "50-59", label: "50 – 59", detail: "Pre-retirement window" },
   { value: "60-69", label: "60 – 69", detail: "Approaching or in retirement" },
-  { value: "70+", label: "70 or older", detail: "Distribution & preservation focus" },
+  {
+    value: "70+",
+    label: "70 or older",
+    detail: "Distribution & preservation focus",
+  },
 ];
 
 export const RETIREMENT_ACCOUNT_OPTIONS: QuizOption<HasRetirementAccount>[] = [
@@ -206,7 +204,9 @@ function getGoldProvider(id: string): Provider {
   return found;
 }
 
-export function scoreAndMatchGoldQuiz(answers: GoldQuizAnswers): GoldMatchResult {
+export function scoreAndMatchGoldQuiz(
+  answers: GoldQuizAnswers,
+): GoldMatchResult {
   let score = 20;
   const hasAccount = answers.hasRetirementAccount === "yes";
   if (hasAccount) score += 25;
@@ -251,107 +251,47 @@ export function scoreAndMatchGoldQuiz(answers: GoldQuizAnswers): GoldMatchResult
   const locationLabel = hasAccount
     ? findLabel(ACCOUNT_LOCATION_OPTIONS, answers.accountLocation)
     : "Direct delivery / non-IRA";
-  const balanceLabel = findLabel(ACCOUNT_BALANCE_OPTIONS, answers.accountBalance);
+  const balanceLabel = findLabel(
+    ACCOUNT_BALANCE_OPTIONS,
+    answers.accountBalance,
+  );
   const timelineLabel = findLabel(TIMELINE_OPTIONS, answers.timeline);
 
+  // All quiz paths currently recommend Citadel Gold.
   const citadel = getGoldProvider("citadel-gold");
-  const goldco = getGoldProvider("goldco");
-  const augusta = getGoldProvider("augusta-precious-metals");
-  const birch = getGoldProvider("birch-gold-group");
-  const hartford = getGoldProvider("american-hartford-gold");
-  const apmex = getGoldProvider("apmex");
-  const jmBullion = getGoldProvider("jm-bullion");
 
-  let matches: MatchedProvider[];
+  const matchHeadline = hasAccount
+    ? isTwentyFiveKPlus
+      ? "Guided four-step Gold IRA rollover"
+      : "Gold IRA or direct-purchase guidance"
+    : "Specialist guidance for physical gold & silver";
 
-  if (hasAccount && isTwentyFiveKPlus) {
-    const thirdProvider = isHigherBalance ? augusta : birch;
-    matches = [
-      {
-        provider: citadel,
-        sponsored: isPaidPlacement(citadel.id),
-        matchHeadline: "Guided four-step Gold IRA rollover",
-        matchReason: `Matches your ${balanceLabel} retirement balance and ${timelineLabel.toLowerCase()} timeline. Citadel Gold states a $25,000 IRA minimum and walks through consultation, funding, metal selection, and depository shipping.`,
-      },
-      {
-        provider: goldco,
-        sponsored: isPaidPlacement(goldco.id),
-        matchHeadline: "Strong second quote for IRA rollovers",
-        matchReason:
-          "Handles both precious metals IRAs and direct delivery, making it useful for comparing written fee schedules and promotion terms side by side.",
-      },
-      {
-        provider: thirdProvider,
-        sponsored: isPaidPlacement(thirdProvider.id),
-        matchHeadline: isHigherBalance
-          ? "Education-first IRA comparison"
-          : "Multi-metal IRA & rollover option",
-        matchReason: isHigherBalance
-          ? "Offers an educational kit and IRA overview so you can cross-check custodian fees, premiums over spot, and buyback terms before funding."
-          : "Publishes retirement account explainers across gold, silver, platinum, and palladium; confirm total dealer, custodian, and storage fees together.",
-      },
-    ];
-  } else if (hasAccount) {
-    matches = [
-      {
-        provider: birch,
-        sponsored: isPaidPlacement(birch.id),
-        matchHeadline: "Worth checking lower-minimum IRA options",
-        matchReason:
-          "Because your stated balance is under $25,000, confirm current account minimums and whether annual custodian and storage fees make sense at your account size.",
-      },
-      {
-        provider: hartford,
-        sponsored: isPaidPlacement(hartford.id),
-        matchHeadline: "Competing written quote benchmark",
-        matchReason:
-          "Ask directly in writing for current IRA minimums, annual custodian fees, and buyback terms to compare against a direct purchase.",
-      },
-      {
-        provider: apmex,
-        sponsored: isPaidPlacement(apmex.id),
-        matchHeadline: "No-IRA-fee direct bullion alternative",
-        matchReason:
-          "If IRA custodian fees outweigh the tax benefit under $25,000, buying physical coins or bars outright avoids annual retirement-account charges.",
-      },
-    ];
-  } else {
-    matches = [
-      {
-        provider: citadel,
-        sponsored: isPaidPlacement(citadel.id),
-        matchHeadline: "Specialist guidance for physical gold & silver",
-        matchReason:
-          "Sells physical gold and silver directly and can compare delivered metal quotes alongside IRA options if your plans change.",
-      },
-      {
-        provider: apmex,
-        sponsored: isPaidPlacement(apmex.id),
-        matchHeadline: "Broad online bullion catalog",
-        matchReason:
-          "Good for comparing exact coin and bar pricing, wire-versus-card discounts, and insured shipping totals on the same day.",
-      },
-      {
-        provider: jmBullion,
-        sponsored: isPaidPlacement(jmBullion.id),
-        matchHeadline: "Same-day bullion price check",
-        matchReason:
-          "Useful second online dealer to price-check identical bullion products, delivery timelines, and buyback policies before ordering.",
-      },
-    ];
-  }
+  const matchReason = hasAccount
+    ? isTwentyFiveKPlus
+      ? `Matches your ${balanceLabel} retirement balance and ${timelineLabel.toLowerCase()} timeline. Citadel Gold states a $25,000 IRA minimum and walks you through consultation, funding, metal selection, and depository shipping.`
+      : `Citadel Gold states a $25,000 IRA minimum, so with a balance under $25,000 a specialist can tell you whether a Gold IRA makes sense yet or whether buying physical metal directly fits better.`
+    : "Citadel Gold sells physical gold and silver directly, and can walk you through IRA options too if your plans change.";
+
+  const matches: MatchedProvider[] = [
+    {
+      provider: citadel,
+      sponsored: isPaidPlacement(citadel.id),
+      matchHeadline,
+      matchReason,
+    },
+  ];
 
   const summaryHeading = hasAccount
     ? isTwentyFiveKPlus
-      ? "You qualify for guided Gold IRA rollover comparisons"
-      : "Compare lower-minimum IRAs and direct bullion options"
-    : "Your direct gold & silver dealer matches";
+      ? "You qualify for a guided Gold IRA rollover"
+      : "Your Gold IRA match is ready"
+    : "Your physical gold & silver match is ready";
 
   const summaryBody = hasAccount
     ? isTwentyFiveKPlus
-      ? `Based on your ${balanceLabel} ${locationLabel.toLowerCase()} account, focus on getting itemized metal quotes, custodian fees, and written buyback terms from at least two providers before moving funds.`
-      : `With an account under $25,000, verify minimum deposit rules and annual flat custodian fees first — smaller IRAs can face higher percentage fee drag than direct bullion purchases.`
-    : `Since you're buying without a retirement account rollover, compare the all-in delivered price (wire vs. card, shipping, and buyback spread) for the exact same coin or bar across dealers.`;
+      ? `Based on your ${balanceLabel} ${locationLabel.toLowerCase()} account, we matched you with Citadel Gold. Before moving funds, ask for your itemized metal quote, custodian fees, and buyback terms in writing.`
+      : `With an account under $25,000, ask about the IRA minimum and annual custodian fees first. Smaller IRAs can lose more to flat yearly fees than a direct purchase would.`
+    : `Since you're buying without a retirement account, ask for the all-in delivered price (payment method, shipping, and buyback spread) for the exact coin or bar you want.`;
 
   const chips = [
     { label: "Age", value: ageLabel },
@@ -361,7 +301,9 @@ export function scoreAndMatchGoldQuiz(answers: GoldQuizAnswers): GoldMatchResult
     { label: "Timeline", value: timelineLabel },
   ];
 
-  const qualifierAnswer = chips.map((c) => `${c.label}: ${c.value}`).join(" | ");
+  const qualifierAnswer = chips
+    .map((c) => `${c.label}: ${c.value}`)
+    .join(" | ");
 
   return {
     score,
