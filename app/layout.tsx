@@ -19,7 +19,7 @@ const serif = Source_Serif_4({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
-const gtmIds = ["GTM-K3X7CB5X", "GTM-PVVT547G"];
+const gtmIds = ["GTM-K3X7CB5X", "GTM-PVVT547G", "GTM-MNFC339G"];
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
